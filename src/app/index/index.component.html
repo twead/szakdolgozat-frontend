@@ -1,1 +1,11 @@
-<p>index works!</p>
+<app-menu></app-menu>
+
+<div class="text-center" *ngIf="isLogged; else loggedOut">
+  <h2>Welcome {{username}}</h2>
+</div>
+
+<ng-template #loggedOut>
+  <div class="text-center">
+    <h2>You haven't logged in</h2>
+  </div>
+</ng-template>

@@ -12,6 +12,8 @@ import { NewUser } from '../model/new-user';
 export class AuthService {
 
   authURL="http://localhost:8080/auth/";
+  // ng build --prod
+  //  authURL="https://onlinehealthcaresystem.herokuapp.com/auth/";
 
   constructor(private httpClient: HttpClient) { }
 
