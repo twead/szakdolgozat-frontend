@@ -17,6 +17,11 @@ export class RegistrationComponent implements OnInit {
   username: string;
   email: string;
   password: string;
+  address: string;
+	idCard: string;
+  socSecNum: string;
+  dateOfBorn: Date;
+
   isLogged = false;
   errorMessage: string;
 
@@ -34,7 +39,8 @@ export class RegistrationComponent implements OnInit {
   }
 
   onRegister(): void{
-    this.newUser = new NewUser(this.name, this.username, this.email, this.password);
+    this.newUser = new NewUser(this.name, this.username, this.email, this.password,
+      this.address, this.idCard, this.socSecNum, this.dateOfBorn);
     this.authService.addUser(this.newUser).subscribe(
       data => {
         this.toastr.success('Registration successful', 'OK', {
@@ -52,4 +58,5 @@ export class RegistrationComponent implements OnInit {
       }
     );
   }
+
 }

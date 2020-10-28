@@ -10,6 +10,8 @@ import { TokenService } from '../service/token.service';
 export class MenuComponent implements OnInit {
 
   isLogged = false;
+  roles: string[];
+  isAdmin = false;
 
   constructor(private tokenService: TokenService, private router: Router) { }
 
@@ -20,6 +22,13 @@ export class MenuComponent implements OnInit {
     else{
       this.isLogged = false;
     }
+
+    this.roles = this.tokenService.getAuthorities();
+    this.roles.forEach(
+      role => {
+        if(role === 'ROLE_ADMIN'){ this.isAdmin = true; }
+      }
+    )
   }
 
   onLogout(): void {

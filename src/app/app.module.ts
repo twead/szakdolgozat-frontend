@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { DoctorComponent } from './doctor/doctor.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     LoginComponent,
     RegistrationComponent,
     MenuComponent,
-    IndexComponent
+    IndexComponent,
+    DoctorComponent
   ],
   imports: [
     BrowserModule,

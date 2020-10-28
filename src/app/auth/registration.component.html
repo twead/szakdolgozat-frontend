@@ -20,11 +20,6 @@
       <div class="card-body">
         <form #f="ngForm" (ngSubmit)="onRegister()" novalidate>
           <div class="form-group">
-            <label for="name">name:</label>
-            <input type="text" name="name" id="name" class="form-control"
-            [(ngModel)]="name" required>
-          </div>
-          <div class="form-group">
             <label for="username">Username:</label>
             <input type="text" name="username" id="username" class="form-control"
             [(ngModel)]="username" required>
@@ -35,9 +30,36 @@
             [(ngModel)]="password" required>
           </div>
           <div class="form-group">
-            <label for="email">email:</label>
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" class="form-control"
+            [(ngModel)]="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
             <input type="text" name="email" id="email" class="form-control"
             [(ngModel)]="email" required >
+          </div>
+
+          <div class="form-group">
+            <label for="dateOfBorn">Date of birth:</label>
+            <input type="date" name="dateOfBorn" id="dateOfBorn" class="form-control"
+            [(ngModel)]="dateOfBorn">
+          </div>
+
+          <div class="form-group">
+            <label for="name">Address:</label>
+            <input type="text" name="address" id="address" class="form-control"
+            [(ngModel)]="address">
+          </div>
+          <div class="form-group">
+            <label for="name">Identity Card Number:</label>
+            <input type="text" name="idCard" id="idCard" class="form-control"
+            [(ngModel)]="idCard" required>
+          </div>
+          <div class="form-group">
+            <label for="name">Social Security Number:</label>
+            <input type="text" name="socSecNum" id="socSecNum" class="form-control"
+            [(ngModel)]="socSecNum" required>
           </div>
           <div class="form-group">
             <button class="btn btn-outline-success btn-block" [disabled]="!f.valid"><i class="fas fa-sign-in-alt"></i> Registration </button>

@@ -9,6 +9,10 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/"><i class="fas fa-home"></i> Home</a>
       </li>
+      <li class="nav-item" *ngIf="isAdmin">
+        <a class="nav-link" routerLink="/doctors"><i class="fas fa-sign-in-alt"></i> Doctors</a>
+      </li>
+
       <li class="nav-item" *ngIf="!isLogged">
         <a class="nav-link" routerLink="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
       </li>
