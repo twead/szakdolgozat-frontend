@@ -25,6 +25,10 @@ export class RegistrationComponent implements OnInit {
   isLogged = false;
   errorMessage: string;
 
+  minDate = new Date(1900,1,1);
+  maxDate = new Date();
+
+
   constructor(
     private tokenService: TokenService,
     private authService: AuthService,
@@ -43,7 +47,7 @@ export class RegistrationComponent implements OnInit {
       this.address, this.idCard, this.socSecNum, this.dateOfBorn);
     this.authService.addUser(this.newUser).subscribe(
       data => {
-        this.toastr.success('Registration successful', 'OK', {
+        this.toastr.success('Sikeres regisztráció!', 'OK', {
           timeOut: 3000, positionClass: 'toast-top-center'
         });
 

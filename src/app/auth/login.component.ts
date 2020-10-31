@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
   password: string;
   roles: string[] = [];
 
+  errorMessage: string;
+
   constructor(
     private tokenService: TokenService,
     private authService: AuthService,
@@ -46,7 +48,7 @@ export class LoginComponent implements OnInit {
 
         this.roles = data.authorities;
 
-        this.toastr.success('Login successful '+ data.username, 'OK', {
+        this.toastr.success('Sikeresn bejelentkeztél!', 'OK', {
           timeOut: 3000, positionClass: 'toast-top-center'
         });
 
@@ -54,7 +56,7 @@ export class LoginComponent implements OnInit {
       },
       err => {
         this.isLogged = false;
-        this.toastr.error('Wrong fields', 'Fail', {
+        this.toastr.error('Hibás felhasználónév vagy jelszó!', 'Hiba!', {
           timeOut: 3000,  positionClass: 'toast-top-center',
         });
 
