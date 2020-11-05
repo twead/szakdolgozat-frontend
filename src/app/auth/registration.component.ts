@@ -63,4 +63,8 @@ export class RegistrationComponent implements OnInit {
     );
   }
 
+  log(x){
+    console.log(x); //Browser->Console->NgModel properties
+  }
+
 }

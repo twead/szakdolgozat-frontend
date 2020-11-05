@@ -16,7 +16,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login.component';
 import { RegistrationComponent } from './auth/registration.component';
-import { MenuComponent } from './menu/menu.component';
 import { IndexComponent } from './index/index.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -33,7 +32,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     AppComponent,
     LoginComponent,
     RegistrationComponent,
-    MenuComponent,
     IndexComponent,
     DoctorComponent,
     MainNavComponent

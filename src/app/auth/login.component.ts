@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
 
         this.roles = data.authorities;
 
-        this.toastr.success('Sikeresn bejelentkeztél!', 'OK', {
+        this.toastr.success('Sikeresen bejelentkeztél!', 'OK', {
           timeOut: 3000, positionClass: 'toast-top-center'
         });
 
