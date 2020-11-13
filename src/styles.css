@@ -1,2 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.container{
+  max-width: 100%; /*container-nek alapból van max-width-je és emiatt a középre igazított szövegek nem lettek teljesen reszponzívak*/
+}
+
+/*Kisebb készülékek, telefonok*/
+@media only screen and (max-width: 767px) {
+  .container{
+    margin-left: 0px;
+    width: 100%;
+  }
+}
+
+/*Ipad-es nézet*/
+@media only screen and (width: 768px) {
+  .container{
+    margin-left: 200px;
+    width: 73%;
+  }
+}
+
+/*Ha ennyire összehúzod becsukódik a sidebar*/
+@media only screen and (min-width: 769px) {
+  .container{
+    margin-left: 0px;
+    width: 100%;
+  }
+}
+
+/*Nyitott sidebar mellett*/
+@media only screen and (min-width: 961px) {
+  .container{
+    margin-left: 200px;
+    width: 80%;
+  }
+}
+
+

@@ -3,8 +3,20 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
+
+    <mat-toolbar>
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <i class="fas fa-bars"></i>
+      </button>
+      Menü
+    </mat-toolbar>
     <mat-nav-list>
+      <a mat-button *ngIf="isLogged" routerLink="/profile" class="sidelistelements"><i class="fas fa-user-circle"></i> Adatlap </a>
       <a mat-button routerLink="/" class="sidelistelements"><i class="fas fa-home"></i> Kezdőlap </a>
       <a mat-button *ngIf="isAdmin" routerLink="/doctors" class="sidelistelements"><i class="fas fa-sign-in-alt"></i> Orvosok </a>
       <a mat-raised-button color="primary" *ngIf="!isLogged" routerLink="/login" class="sidelistelements"><i class="fas fa-sign-in-alt"></i> Bejelentkezés </a>
@@ -19,11 +31,11 @@
         mat-icon-button
         (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        <i class="fas fa-bars"></i>
       </button>
       <i class="fas fa-plus-square"></i>
-      <span>Online Egészségügyi Rendszer</span>
+       <span id="title"> &nbsp; Online Egészségügyi Rendszer</span>
     </mat-toolbar>
-    <!-- Add Content Here -->
+    <!--More code here-->
   </mat-sidenav-content>
 </mat-sidenav-container>

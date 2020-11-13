@@ -26,6 +26,7 @@ import { DoctorComponent } from './doctor/doctor.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     RegistrationComponent,
     IndexComponent,
     DoctorComponent,
-    MainNavComponent
+    MainNavComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

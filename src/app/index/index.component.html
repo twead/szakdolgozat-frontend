@@ -1,11 +1,11 @@
 <app-main-nav></app-main-nav>
 
-<div class="text-center" *ngIf="isLogged; else loggedOut">
+<div class="container text-center" *ngIf="isLogged; else loggedOut">
   <h2>Üdvözöllek {{username}}!</h2>
 </div>
 
 <ng-template #loggedOut>
-  <div class="text-center">
+  <div class="container text-center">
     <h2>Kérlek jelentkezz be</h2>
   </div>
 </ng-template>

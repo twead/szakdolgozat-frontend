@@ -56,7 +56,8 @@ export class LoginComponent implements OnInit {
       },
       err => {
         this.isLogged = false;
-        this.toastr.error('Hibás felhasználónév vagy jelszó!', 'Hiba!', {
+        this.errorMessage = err.error.message;
+        this.toastr.error(this.errorMessage, 'Hiba!', {
           timeOut: 3000,  positionClass: 'toast-top-center',
         });
 

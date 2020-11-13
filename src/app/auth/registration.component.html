@@ -1,6 +1,6 @@
 <app-main-nav></app-main-nav>
-<div class="text-center" *ngIf="isLogged; else loggedOut">
-  <h2>You've already logged in</h2>
+<div class="container" *ngIf="isLogged; else loggedOut">
+  <h2>Már be vagy jelentkezve!</h2>
 </div>
 
 <ng-template #loggedOut>
@@ -21,11 +21,11 @@
           <mat-form-field color="accent" appearance="fill">
             <mat-label>Felhasználónév</mat-label>
             <input
-              ngModel
+              [(ngModel)]="username"
               name="username"
               id="username"
               matInput
-              #username="ngModel"
+              #usernameError="ngModel"
               (change)="log(username)"
               minlength="5"
               maxlength="15"
@@ -35,15 +35,15 @@
             <mat-hint align="start">Minimum 5, maximum 15 karakter.</mat-hint>
             <div
               class="alert alert-danger"
-              *ngIf="username.invalid && username.touched"
+              *ngIf="usernameError.invalid && usernameError.touched"
             >
-              <div *ngIf="username.errors.required">
+              <div *ngIf="usernameError.errors.required">
                 Felhasználónév megadása kötelező!
               </div>
-              <div *ngIf="username.errors.minlength">
-                Minimum {{ username.errors.minlength.requiredLength }} karakter hosszúságú legyen!
+              <div *ngIf="usernameError.errors.minlength">
+                Minimum {{ usernameError.errors.minlength.requiredLength }} karakter hosszúságú legyen!
               </div>
-              <div *ngIf="username.errors.pattern">
+              <div *ngIf="usernameError.errors.pattern">
                 Csak kis- és nagybetűket, illetve számokat tartalmazhat!
               </div>
             </div>
@@ -52,27 +52,26 @@
           <mat-form-field color="accent" appearance="fill">
             <mat-label>Jelszó</mat-label>
             <input
-              ngModel
+              [(ngModel)]="password"
               type="password"
               name="password"
               id="password"
               matInput
-              #password="ngModel"
+              #passwordError="ngModel"
               (change)="log(password)"
               minlength="8"
               maxlength="30"
-              pattern="'^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,}$'"
               required
             />
             <div
               class="alert alert-danger"
-              *ngIf="password.invalid && password.touched"
+              *ngIf="passwordError.invalid && passwordError.touched"
             >
-              <div *ngIf="password.errors.required">
+              <div *ngIf="passwordError.errors.required">
                 Jelszó megadása kötelező!
               </div>
-              <div *ngIf="password.errors.minlength">
-                Minimum {{ password.errors.minlength.requiredLength }} karakter hosszúságú legyen!
+              <div *ngIf="passwordError.errors.minlength">
+                Minimum {{ passwordError.errors.minlength.requiredLength }} karakter hosszúságú legyen!
               </div>
             </div>
             <mat-hint align="start"
@@ -90,23 +89,23 @@
           <mat-form-field color="accent" appearance="fill">
             <mat-label>Email</mat-label>
             <input
-              ngModel
+              [(ngModel)]="email"
               name="email"
               id="email"
               matInput
-              #email="ngModel"
+              #emailError="ngModel"
               (change)="log(email)"
               pattern="[a-z0-9_.+-]+@[a-z0-9-]+\.[a-z0-9-]+"
               required
             />
             <div
               class="alert alert-danger"
-              *ngIf="email.invalid && email.touched"
+              *ngIf="emailError.invalid && emailError.touched"
             >
-              <div *ngIf="email.errors.required">
+              <div *ngIf="emailError.errors.required">
                 Jelszó megadása kötelező!
               </div>
-              <div *ngIf="email.errors.pattern">
+              <div *ngIf="emailError.errors.pattern">
                 Meg kell felelnie a mintának.
               </div>
             </div>
@@ -132,31 +131,32 @@
             <mat-datepicker #myDatePicker></mat-datepicker>
           </mat-form-field>
 
-          <mat-form-field appearance="outline" style="margin-bottom: 0px">
+          <mat-form-field color="accent" appearance="fill">
             <mat-label>Lakcím</mat-label>
-            <input name="address" id="address" matInput [(ngModel)]="address" />
+            <input name="address" id="address" matInput [(ngModel)]="address" required/>
+            <mat-hint align="start">Lakcím megadása kötelező</mat-hint>
           </mat-form-field>
 
           <mat-form-field color="accent" appearance="fill">
             <mat-label>Személyazonosító igazolvány szám</mat-label>
             <input
-            ngModel
+              [(ngModel)]="idCard"
               name="idCard"
               id="idCard"
               matInput
-              #idCard="ngModel"
+              #idCardError="ngModel"
               (change)="log(idCard)"
               pattern="[0-9]{6}[A-Z]{2}"
               required
             />
             <div
               class="alert alert-danger"
-              *ngIf="idCard.invalid && idCard.touched"
+              *ngIf="idCardError.invalid && idCardError.touched"
             >
-              <div *ngIf="idCard.errors.required">
+              <div *ngIf="idCardError.errors.required">
                 Személyazonosító igazolvány szám megadása kötelező!
               </div>
-              <div *ngIf="idCard.errors.pattern">
+              <div *ngIf="idCardError.errors.pattern">
                 Meg kell felelnie a mintának.
               </div>
             </div>
@@ -168,23 +168,23 @@
           <mat-form-field color="accent" appearance="fill">
             <mat-label>TAJ kártya szám</mat-label>
             <input
-              ngModel
+              [(ngModel)]="socSecNum"
               name="socSecNum"
               id="socSecNum"
               matInput
-              #socSecNum="ngModel"
+              #socSecNumError="ngModel"
               (change)="log(socSecNum)"
               pattern="[0-9]{9}"
               required
             />
             <div
               class="alert alert-danger"
-              *ngIf="socSecNum.invalid && socSecNum.touched"
+              *ngIf="socSecNumError.invalid && socSecNumError.touched"
             >
-              <div *ngIf="socSecNum.errors.required">
+              <div *ngIf="socSecNumError.errors.required">
                 TAJ kártya szám megadása kötelező!
               </div>
-              <div *ngIf="socSecNum.errors.pattern">
+              <div *ngIf="socSecNumError.errors.pattern">
                 Meg kell felelnie a mintának.
               </div>
             </div>

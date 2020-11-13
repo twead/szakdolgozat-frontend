@@ -19,3 +19,12 @@
 .sidelistelements{
   width: 100%;
 }
+
+/*-----Custom css-----*/
+#title{
+  font-size: 14px;
+}
+
+.fas.fa-bars{
+  font-size: 20px;
+}
