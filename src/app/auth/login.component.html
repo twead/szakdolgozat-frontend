@@ -1,0 +1,41 @@
+<app-main-nav></app-main-nav>
+<div class="container" *ngIf="isLogged; else loggedOut">
+  <h2>Már be vagy jelentkezve!</h2>
+</div>
+
+
+<ng-template #loggedOut>
+  <div class="container d-flex justify-content-center">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" routerLink="/login">Bejelentkezés</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/registration">Regisztráció</a>
+          </li>
+        </ul>
+      </mat-card-header>
+      <mat-card-content>
+        <form #f="ngForm" (ngSubmit)="onLogin()" novalidate>
+
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Felhasználónév</mat-label>
+            <input name="username" id="username" matInput [(ngModel)]="username" required>
+          </mat-form-field>
+
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Jelszó</mat-label>
+            <input type="password" name="password" id="password" matInput [(ngModel)]="password" required>
+          </mat-form-field>
+
+          <div class="form-group">
+            <button class="btn btn-outline-success btn-block" [disabled]="!f.valid"><i class="fas fa-sign-in-alt"></i> Login </button>
+          </div>
+        </form>
+
+    </mat-card-content>
+  </mat-card>
+  </div>
+</ng-template>
