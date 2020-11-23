@@ -1,0 +1,31 @@
+<app-main-nav></app-main-nav>
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h2>Háziorvos lista</h2>
+    </div>
+    <div class="panel-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Név</th>
+            <th>Felhasználónév</th>
+            <th>Email</th>
+            <!--<th>Actions</th></td>-->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let practitioner of practitioners">
+            <td>{{practitioner.name}}</td>
+            <td>{{practitioner.username}}</td>
+            <td>{{practitioner.email}}</td>
+            <!--<td><button (click)="deletePractitioner(practitioner.id)" class="btn btn-danger">Törlés</button>
+                <button (click)="updatePractitioner(practitioner.id)" class="btn btn-info" style="margin-left: 10px">Módosítás</button>
+                <button (click)="practitionerDetails(practitioner.id)" class="btn btn-info" style="margin-left: 10px">Részletek</button>
+            </td>-->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

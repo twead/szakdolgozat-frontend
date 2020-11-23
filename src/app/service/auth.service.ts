@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { JwtDto } from '../model/jwt-dto';
-import { LoginUser } from '../model/login-user';
-import { NewUser } from '../model/new-user';
+import { JwtDto } from '../dto/jwt-dto';
+import { LoginUser } from '../dto/login-user';
+import { NewUser } from '../dto/new-user';
+
 
 
 @Injectable({
