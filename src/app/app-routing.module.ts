@@ -6,6 +6,8 @@ import { IndexComponent } from './index/index.component';
 import { ProdGuardService as guard } from './guard/user-guard.service';
 import { ProfileComponent } from './profile/profile.component';
 import { GeneralPractitionerListComponent } from './general-practitioner/general-practitioner-list.component';
+import { GeneralPractitionerDetailsComponent } from './general-practitioner/general-practitioner-details.component';
+import { GeneralPractitionerUpdateComponent } from './general-practitioner/general-practitioner-update.component';
 
 
 
@@ -15,6 +17,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'registration', component: RegistrationComponent},
   {path: 'practitioners', component: GeneralPractitionerListComponent, canActivate: [guard], data: {expectedRole: ['admin']}},
+  {path: 'details/:id', component: GeneralPractitionerDetailsComponent, canActivate: [guard], data: {expectedRole: ['admin']}},
+  {path: 'update/:id', component: GeneralPractitionerUpdateComponent, canActivate: [guard], data: {expectedRole: ['admin']}},
   {path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 

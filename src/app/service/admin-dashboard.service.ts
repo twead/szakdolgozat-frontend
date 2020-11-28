@@ -22,6 +22,16 @@ export class AdminDashboardService {
     return this.httpClient.get<Array<User>>(this.authURL+'practitioners');
   }
 
+  public getPractionerById(id: number): Observable<User>{
+    return this.httpClient.get<User>(this.authURL+'details/' + id);
+  }
 
+  public updatePractitioner(id: number, practitioner: User): Observable<User>{
+    return this.httpClient.put<User>(this.authURL+'update/' + id, practitioner);
+  }
+
+  public deletePractitioner(id: number){
+    return this.httpClient.delete(this.authURL + 'delete/' + id);
+  }
 
 }

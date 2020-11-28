@@ -5,13 +5,13 @@
       <h2>Háziorvos lista</h2>
     </div>
     <div class="panel-body">
-      <table class="table table-striped">
+      <table class="table table-striped table-responsive-md">
         <thead>
           <tr>
             <th>Név</th>
             <th>Felhasználónév</th>
             <th>Email</th>
-            <!--<th>Actions</th></td>-->
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -19,6 +19,9 @@
             <td>{{practitioner.name}}</td>
             <td>{{practitioner.username}}</td>
             <td>{{practitioner.email}}</td>
+            <td><button (click)="getPractitionerDetails(practitioner.id)" class="btn btn-info" style="margin-right: 10px">Részletek</button>
+            <button (click)="updatePractitioner(practitioner.id)" class="btn btn-info" style="margin-right: 10px">Módosítás</button>
+            <button (click)="deletePractitioner(practitioner.id)" class="btn btn-danger">Törlés</button></td>
             <!--<td><button (click)="deletePractitioner(practitioner.id)" class="btn btn-danger">Törlés</button>
                 <button (click)="updatePractitioner(practitioner.id)" class="btn btn-info" style="margin-left: 10px">Módosítás</button>
                 <button (click)="practitionerDetails(practitioner.id)" class="btn btn-info" style="margin-left: 10px">Részletek</button>

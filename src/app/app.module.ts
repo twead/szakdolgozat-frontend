@@ -27,6 +27,8 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { GeneralPractitionerListComponent } from './general-practitioner/general-practitioner-list.component';
 import { ProfileComponent } from './profile/profile.component';
+import { GeneralPractitionerDetailsComponent } from './general-practitioner/general-practitioner-details.component';
+import { GeneralPractitionerUpdateComponent } from './general-practitioner/general-practitioner-update.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { ProfileComponent } from './profile/profile.component';
     MainNavComponent,
     ProfileComponent,
     GeneralPractitionerListComponent,
+    GeneralPractitionerDetailsComponent,
+    GeneralPractitionerUpdateComponent,
   ],
   imports: [
     BrowserModule,

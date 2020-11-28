@@ -1,0 +1,21 @@
+<app-main-nav></app-main-nav>
+<div class="container">
+  <h2>Háziorvos részletek</h2>
+
+  <hr/>
+  <div *ngIf="practitioner">
+    <div>
+      <label><b>Név: </b></label> {{practitioner.name}}
+    </div>
+    <div>
+      <label><b>Felhasználónév: </b></label> {{practitioner.username}}
+    </div>
+    <div>
+      <label><b>Email: </b></label> {{practitioner.email}}
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <button (click)="list()" class="btn btn-primary">Vissza a háziorvos listához</button><br>
+</div>
