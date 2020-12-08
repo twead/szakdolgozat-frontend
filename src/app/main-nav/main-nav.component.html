@@ -16,7 +16,7 @@
       Menü
     </mat-toolbar>
     <mat-nav-list>
-      <a mat-button *ngIf="isPractitioner" routerLink="/profile" class="sidelistelements"><i class="fas fa-user-circle"></i> Adatlap </a>
+      <a mat-button *ngIf="isAdmin" routerLink="/profile" class="sidelistelements"><i class="fas fa-user-circle"></i> Adatlap </a>
       <a mat-button routerLink="/" class="sidelistelements"><i class="fas fa-home"></i> Kezdőlap </a>
       <a mat-button *ngIf="isAdmin" routerLink="/practitioners" class="sidelistelements"><i class="fas fa-sign-in-alt"></i> Orvosok </a>
       <a mat-raised-button color="primary" *ngIf="!isLogged" routerLink="/login" class="sidelistelements"><i class="fas fa-sign-in-alt"></i> Bejelentkezés </a>

@@ -1,21 +1,24 @@
-<h3>Update Employee</h3>
-<div style="width: 400px;">
-  <form (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="name">Név</label>
-      <input type="text" class="form-control" id="name" required [(ngModel)]="practitioner.name" name="name">
-    </div>
+<app-main-nav></app-main-nav>
+<div class="container">
+  <h3>Háziorvos módosítása</h3>
+  <div style="width: 400px;">
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Név</label>
+        <input type="text" class="form-control" id="name" required [(ngModel)]="practitioner.name" name="name">
+      </div>
 
-    <div class="form-group">
-      <label for="name">Felhasználónév</label>
-      <input type="text" class="form-control" id="username" required [(ngModel)]="practitioner.username" name="username">
-    </div>
+      <div class="form-group">
+        <label for="name">Felhasználónév</label>
+        <input type="text" class="form-control" id="username" required [(ngModel)]="practitioner.username" name="username">
+      </div>
 
-    <div class="form-group">
-      <label for="name">Email</label>
-      <input type="text" class="form-control" id="email" required [(ngModel)]="practitioner.email" name="email">
-    </div>
+      <div class="form-group">
+        <label for="name">Email</label>
+        <input type="text" class="form-control" id="email" required [(ngModel)]="practitioner.email" name="email">
+      </div>
 
-    <button type="submit" class="btn btn-success">Submit</button>
-  </form>
+      <button type="submit" class="btn btn-success">Módosít</button>
+    </form>
+  </div>
 </div>

@@ -1,0 +1,29 @@
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+mat-card{
+  margin-top: 20px;
+  width: 500px;
+  border: 1px solid rgb(235, 229, 229)
+}
+
+mat-card-header{
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+mat-card-content{
+  font-size: 14px;
+}
+
+mat-card-actions{
+  margin: auto;
+  width: 50%;
+  text-align: center;
+}
+
+button{
+  font-size: 17px;
+}

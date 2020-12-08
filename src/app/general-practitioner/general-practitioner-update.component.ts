@@ -19,7 +19,6 @@ export class GeneralPractitionerUpdateComponent implements OnInit {
     private adminService: AdminDashboardService, private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.practitioner = new User();
 
     this.id = this.route.snapshot.params['id'];
 
@@ -30,11 +29,10 @@ export class GeneralPractitionerUpdateComponent implements OnInit {
       }, error => console.log(error));
   }
 
-  updateEmployee() {
+  updatePractitioner() {
     this.adminService.updatePractitioner(this.id, this.practitioner)
       .subscribe(data => {
         console.log(data);
-        this.practitioner = new User();
         this.gotoList();
       }, err => {
         this.errorMessage = err.error.message;
@@ -44,10 +42,10 @@ export class GeneralPractitionerUpdateComponent implements OnInit {
         console.log(err)
       }
     );
-}
+  }
 
   onSubmit() {
-    this.updateEmployee();
+    this.updatePractitioner();
   }
 
   gotoList() {

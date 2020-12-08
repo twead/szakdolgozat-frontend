@@ -4,11 +4,11 @@ import { Userprofile } from './userprofile';
 export class User {
 
   constructor(
-    public id: Number = null,
-    public username: String = null,
-    public password: String = null,
-    public email: String = null,
-    public name: String = null,
+    public id: number = null,
+    public username: string = null,
+    public password: string = null,
+    public email: string = null,
+    public name: string = null,
     public roles: Array<Role> = [],
     public userProfile: Userprofile = null
     ){}

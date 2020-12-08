@@ -1,1 +1,38 @@
-<p>profile works!</p>
+<app-main-nav></app-main-nav>
+<div class="container">
+  <h2>Profil adatok</h2>
+  <hr/>
+
+  <mat-card class="example-card">
+    <mat-card-content>
+      <div>
+        <label><b>Név: </b></label> {{profileData.name}}
+      </div>
+      <div>
+        <label><b>Felhasználónév: </b></label> {{profileData.username}}
+      </div>
+      <div>
+        <label><b>Email: </b></label> {{profileData.email}}
+      </div>
+      <div>
+        <label><b>Születési dátum: </b></label> {{profileData?.userProfile?.dateOfBorn}}
+      </div>
+      <div>
+        <label><b>Lakcím: </b></label> {{profileData?.userProfile?.address}}
+      </div>
+      <div>
+        <label><b>Személyazonosító igazolvány szám: </b></label> {{profileData?.userProfile?.idCard}}
+      </div>
+      <div>
+        <label><b>TAJ kártya szám: </b></label> {{profileData?.userProfile?.socSecNum}}
+      </div>
+      <button (click)="updateProfile()" class="btn btn-info" style="margin-right: 10px">Módosítás</button>
+      <button (click)="updatePassword()" class="btn btn-info" style="margin-right: 10px">Jelszó megváltoztatása</button>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<!--
+//		if(!passwordEncoder.matches(userDetails.getPassword(), user.getPassword()))
+//			user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
+-->
