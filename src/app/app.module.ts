@@ -29,6 +29,8 @@ import { GeneralPractitionerListComponent } from './general-practitioner/general
 import { ProfileComponent } from './profile/profile.component';
 import { GeneralPractitionerDetailsComponent } from './general-practitioner/general-practitioner-details.component';
 import { GeneralPractitionerUpdateComponent } from './general-practitioner/general-practitioner-update.component';
+import { ProfileUpdateComponent } from './profile/profile-update.component';
+import { PasswordUpdateComponent } from './profile/password-update.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { GeneralPractitionerUpdateComponent } from './general-practitioner/gener
     GeneralPractitionerListComponent,
     GeneralPractitionerDetailsComponent,
     GeneralPractitionerUpdateComponent,
+    ProfileUpdateComponent,
+    PasswordUpdateComponent,
   ],
   imports: [
     BrowserModule,

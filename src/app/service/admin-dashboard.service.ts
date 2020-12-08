@@ -8,7 +8,7 @@ import { User } from '../model/user';
 })
 export class AdminDashboardService {
 
-  authURL="http://localhost:8080/api/";
+  authURL="http://localhost:8080/api/dashboard/";
   // ng build --prod
   //  authURL="https://onlinehealthcaresystem.herokuapp.com/api/";
 

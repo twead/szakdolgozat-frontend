@@ -8,12 +8,16 @@ import { ProfileComponent } from './profile/profile.component';
 import { GeneralPractitionerListComponent } from './general-practitioner/general-practitioner-list.component';
 import { GeneralPractitionerDetailsComponent } from './general-practitioner/general-practitioner-details.component';
 import { GeneralPractitionerUpdateComponent } from './general-practitioner/general-practitioner-update.component';
+import { ProfileUpdateComponent } from './profile/profile-update.component';
+import { PasswordUpdateComponent } from './profile/password-update.component';
 
 
 
 const routes: Routes = [
   {path: '', component: IndexComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [guard], data: {expectedRole: ['user','practitioner','admin']}},
+  {path: 'profile-update', component: ProfileUpdateComponent, canActivate: [guard], data: {expectedRole: ['user','practitioner','admin']}},
+  {path: 'password-update', component: PasswordUpdateComponent, canActivate: [guard], data: {expectedRole: ['user','practitioner','admin']}},
   {path: 'login', component: LoginComponent},
   {path: 'registration', component: RegistrationComponent},
   {path: 'practitioners', component: GeneralPractitionerListComponent, canActivate: [guard], data: {expectedRole: ['admin']}},

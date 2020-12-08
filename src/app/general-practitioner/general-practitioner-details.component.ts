@@ -19,9 +19,7 @@ export class GeneralPractitionerDetailsComponent implements OnInit {
     private adminService: AdminDashboardService, private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.practitioner = new User();
-
-    this.id = this.route.snapshot.params['id'];
+     this.id = this.route.snapshot.params['id'];
 
     this.adminService.getPractionerById(this.id)
       .subscribe(
