@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginUser } from '../model/login-user';
 import { AuthService } from '../service/auth.service';
 import { TokenService } from '../service/token.service';
 import { ToastrService } from 'ngx-toastr';
+import { LoginUser } from '../dto/login-user';
 
 @Component({
   selector: 'app-login',

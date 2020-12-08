@@ -14,6 +14,7 @@ export class MainNavComponent {
 
   isLogged = false;
   roles: string[];
+  isPractitioner = false;
   isAdmin = false;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -35,6 +36,7 @@ export class MainNavComponent {
     this.roles = this.tokenService.getAuthorities();
     this.roles.forEach(
       role => {
+        if(role === 'ROLE_PRACTITIONER'){ this.isPractitioner = true; }
         if(role === 'ROLE_ADMIN'){ this.isAdmin = true; }
       }
     )

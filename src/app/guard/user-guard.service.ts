@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
 import { TokenService } from '../service/token.service';
 
 @Injectable({
@@ -20,6 +19,9 @@ export class ProdGuardService implements CanActivate {
       const roles = this.tokenService.getAuthorities();
       this.realRole = 'user';
       roles.forEach(role => {
+        if (role === 'ROLE_PRACTITIONER') {
+          this.realRole = 'practitioner';
+        }
         if (role === 'ROLE_ADMIN') {
           this.realRole = 'admin';
         }

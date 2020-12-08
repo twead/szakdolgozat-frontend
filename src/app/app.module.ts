@@ -22,11 +22,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { DoctorComponent } from './doctor/doctor.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { GeneralPractitionerListComponent } from './general-practitioner/general-practitioner-list.component';
 import { ProfileComponent } from './profile/profile.component';
+import { GeneralPractitionerDetailsComponent } from './general-practitioner/general-practitioner-details.component';
+import { GeneralPractitionerUpdateComponent } from './general-practitioner/general-practitioner-update.component';
 
 @NgModule({
   declarations: [
@@ -34,9 +36,11 @@ import { ProfileComponent } from './profile/profile.component';
     LoginComponent,
     RegistrationComponent,
     IndexComponent,
-    DoctorComponent,
     MainNavComponent,
     ProfileComponent,
+    GeneralPractitionerListComponent,
+    GeneralPractitionerDetailsComponent,
+    GeneralPractitionerUpdateComponent,
   ],
   imports: [
     BrowserModule,

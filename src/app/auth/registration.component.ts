@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { NewUser } from '../model/new-user';
+import { NewUser } from '../dto/new-user';
 import { AuthService } from '../service/auth.service';
 import { TokenService } from '../service/token.service';
 
