@@ -22,7 +22,6 @@ export class RegistrationComponent implements OnInit {
   socSecNum: string;
   dateOfBorn: Date;
 
-  isLogged = false;
   errorMessage: string;
 
   minDate = new Date(1900,1,1);
@@ -37,9 +36,6 @@ export class RegistrationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if(this.tokenService.getToken()){
-      this.isLogged = true;
-    }
   }
 
   onRegister(): void{
