@@ -8,6 +8,7 @@ import { TokenService } from '../service/token.service';
 export class ProdGuardService implements CanActivate {
 
   realRole: string;
+  realRole2: string;
 
   constructor(
     private tokenService: TokenService,
@@ -16,17 +17,9 @@ export class ProdGuardService implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
       const expectedRole = route.data.expectedRole;
-      const roles = this.tokenService.getAuthorities();
-      this.realRole = 'user';
-      roles.forEach(role => {
-        if (role === 'ROLE_PRACTITIONER') {
-          this.realRole = 'practitioner';
-        }
-        if (role === 'ROLE_ADMIN') {
-          this.realRole = 'admin';
-        }
-      });
-      if (!this.tokenService.getToken() || expectedRole.indexOf(this.realRole) === -1) {
+      this.realRole = this.tokenService.IsAdmin ? 'admin' : 'user';
+      this.realRole2 = this.tokenService.IsPractitioner ? 'practitioner' : 'user';
+      if (!this.tokenService.isLogged() || expectedRole.indexOf(this.realRole) < 0 && expectedRole.indexOf(this.realRole2) < 0) {
         this.router.navigate(['/']);
         return false;
       }

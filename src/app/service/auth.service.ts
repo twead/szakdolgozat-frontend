@@ -1,20 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { JwtDto } from '../dto/jwt-dto';
 import { LoginUser } from '../dto/login-user';
 import { NewUser } from '../dto/new-user';
-
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  authURL="http://localhost:8080/auth/";
-  // ng build --prod
-  //  authURL="https://onlinehealthcaresystem.herokuapp.com/auth/";
+  authURL = environment.authURL;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -24,6 +21,10 @@ export class AuthService {
 
   public login(loginUser: LoginUser): Observable<JwtDto>{
     return this.httpClient.post<JwtDto>(this.authURL+'login',loginUser);
+  }
+
+  public refresh(dto: JwtDto): Observable<JwtDto>{
+    return this.httpClient.post<JwtDto>(this.authURL+'refresh',dto);
   }
 
 }

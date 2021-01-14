@@ -13,6 +13,11 @@ export class GeneralPractitionerUpdateComponent implements OnInit {
 
   id: number;
   practitioner: User;
+
+  name : string;
+  username : string;
+  email : string;
+
   errorMessage: string;
 
   constructor(private route: ActivatedRoute,private router: Router,
@@ -26,10 +31,17 @@ export class GeneralPractitionerUpdateComponent implements OnInit {
       .subscribe(data => {
         console.log(data)
         this.practitioner = data;
+        this.name = this.practitioner.name;
+        this.username = this.practitioner.username;
+        this.email = this.practitioner.email;
       }, error => console.log(error));
   }
 
   updatePractitioner() {
+    this.practitioner.name = this.name;
+    this.practitioner.username = this.username;
+    this.practitioner.email = this.email;
+
     this.adminService.updatePractitioner(this.id, this.practitioner)
       .subscribe(data => {
         console.log(data);
@@ -52,4 +64,3 @@ export class GeneralPractitionerUpdateComponent implements OnInit {
     this.router.navigate(['/practitioners']);
   }
 }
-

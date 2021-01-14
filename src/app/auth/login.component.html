@@ -1,11 +1,6 @@
 <app-main-nav></app-main-nav>
-<div class="container" *ngIf="isLogged; else loggedOut">
-  <h2>Már be vagy jelentkezve!</h2>
-</div>
 
-
-<ng-template #loggedOut>
-  <div class="container d-flex justify-content-center">
+<div class="container d-flex justify-content-center">
     <mat-card class="example-card">
       <mat-card-header>
         <ul class="nav nav-tabs">
@@ -37,5 +32,4 @@
 
     </mat-card-content>
   </mat-card>
-  </div>
-</ng-template>
+</div>

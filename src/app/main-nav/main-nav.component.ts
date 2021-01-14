@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 export class MainNavComponent {
 
   isLogged = false;
-  roles: string[];
   isPractitioner = false;
   isAdmin = false;
 
@@ -26,25 +25,13 @@ export class MainNavComponent {
   constructor(private breakpointObserver: BreakpointObserver, private tokenService: TokenService, private router: Router) {}
 
   ngOnInit(): void {
-    if(this.tokenService.getToken()){
-      this.isLogged = true;
-    }
-    else{
-      this.isLogged = false;
-    }
-
-    this.roles = this.tokenService.getAuthorities();
-    this.roles.forEach(
-      role => {
-        if(role === 'ROLE_PRACTITIONER'){ this.isPractitioner = true; }
-        if(role === 'ROLE_ADMIN'){ this.isAdmin = true; }
-      }
-    )
+    this.isLogged = this.tokenService.isLogged();
+    this.isAdmin = this.tokenService.IsAdmin();
+    this.isPractitioner = this.tokenService.IsPractitioner();
   }
 
   onLogout(): void {
       this.tokenService.logOut();
-      window.location.reload();
       this.router.navigate(['/']);
   }
 }

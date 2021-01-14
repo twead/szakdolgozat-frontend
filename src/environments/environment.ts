@@ -3,7 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  authURL: "http://localhost:8080/auth/",
+  patientURL: "http://localhost:8080/api/",
+  dashboardURL: "http://localhost:8080/api/dashboard/"
+  // ng build --prod
+  //  authURL: "https://onlinehealthcaresystem.herokuapp.com/api/",
+  //  patientURL: "https://onlinehealthcaresystem.herokuapp.com/api/",
+  //  dashboardURL : "https://onlinehealthcaresystem.herokuapp.com/api/"
 };
 
 /*

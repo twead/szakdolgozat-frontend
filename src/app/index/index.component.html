@@ -1,7 +1,8 @@
 <app-main-nav></app-main-nav>
 
-<div class="container text-center" *ngIf="isLogged; else loggedOut">
-  <h2>Üdvözöllek {{username}}!</h2>
+<div class="container text-center">
+  <h2 *ngIf="!username">Üdvözöllek idegen!</h2>
+  <h2 *ngIf="username">Üdvözöllek {{username}}!</h2>
 </div>
 
 <ng-template #loggedOut>

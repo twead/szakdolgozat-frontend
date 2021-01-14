@@ -12,13 +12,9 @@ import { LoginUser } from '../dto/login-user';
 })
 export class LoginComponent implements OnInit {
 
-  isLogged = false;
-  isLoginFail = false;
   loginUser: LoginUser;
   username: string;
   password: string;
-  roles: string[] = [];
-
   errorMessage: string;
 
   constructor(
@@ -29,33 +25,19 @@ export class LoginComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    if(this.tokenService.getToken()){
-      this.isLogged = true;
-      this.isLoginFail = false;
-      this.roles = this.tokenService.getAuthorities();
-    }
   }
 
   onLogin(): void{
     this.loginUser = new LoginUser(this.username, this.password);
     this.authService.login(this.loginUser).subscribe(
       data => {
-        this.isLogged = true;
-
         this.tokenService.setToken(data.token);
-        this.tokenService.setUserName(data.username);
-        this.tokenService.setAuthorities(data.authorities);
-
-        this.roles = data.authorities;
-
         this.toastr.success('Sikeresen bejelentkeztél!', 'OK', {
           timeOut: 3000, positionClass: 'toast-top-center'
         });
-
         this.router.navigate(['/']);
       },
       err => {
-        this.isLogged = false;
         this.errorMessage = err.error.message;
         this.toastr.error(this.errorMessage, 'Hiba!', {
           timeOut: 3000,  positionClass: 'toast-top-center',
