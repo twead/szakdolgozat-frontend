@@ -31,6 +31,8 @@ import { GeneralPractitionerDetailsComponent } from './general-practitioner/gene
 import { GeneralPractitionerUpdateComponent } from './general-practitioner/general-practitioner-update.component';
 import { ProfileUpdateComponent } from './profile/profile-update.component';
 import { PasswordUpdateComponent } from './profile/password-update.component';
+import { interceptorProvider } from './interceptor/user-interceptor.service';
+import { SelectPractitionerComponent } from './appointment/select-practitioner.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { PasswordUpdateComponent } from './profile/password-update.component';
     GeneralPractitionerUpdateComponent,
     ProfileUpdateComponent,
     PasswordUpdateComponent,
+    SelectPractitionerComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,10 @@ import { PasswordUpdateComponent } from './profile/password-update.component';
     LayoutModule,
     MatSidenavModule
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [
+    interceptorProvider,
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

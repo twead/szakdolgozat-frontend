@@ -11,6 +11,7 @@ export class Userprofile {
     public socSecNum: string = null,
     public activation: string = null,
     public isenabled: boolean = false,
+    public practitionerId: number = null,
     public user: User = null
   ){}
 

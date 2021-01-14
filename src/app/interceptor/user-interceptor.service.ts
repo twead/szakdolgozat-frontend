@@ -1,4 +1,4 @@
-/*
+
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -22,8 +22,3 @@ export class UserInterceptorService implements HttpInterceptor {
 }
 
 export const interceptorProvider = [{provide: HTTP_INTERCEPTORS, useClass: UserInterceptorService, multi: true}];
-*/
-
-
-//az angular elküldi body-ban az aktuális user nevét (tokenService.getUsername) a Spring boot controller metódusának,
-//az megkeresi username alapján az usert és viszaküldi az userhez tartozó adatokat, így kész lesz a user-profile component is.

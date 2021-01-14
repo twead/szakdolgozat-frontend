@@ -18,7 +18,7 @@ export class GeneralPractitionerListComponent implements OnInit {
               private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.getProjects();
+    this.getPractitioners();
   }
 
   deletePractitioner(id: number) {
@@ -26,7 +26,7 @@ export class GeneralPractitionerListComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
-          this.getProjects();
+          this.getPractitioners();
         },
         err => {
           this.errorMessage = err.error.message;
@@ -38,7 +38,7 @@ export class GeneralPractitionerListComponent implements OnInit {
       );
   }
 
-  getProjects() {
+  getPractitioners() {
     this.adminService.getAllPractitioner().subscribe(
       response => {
         this.practitioners = response;

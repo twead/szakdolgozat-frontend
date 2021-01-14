@@ -10,16 +10,18 @@ import { GeneralPractitionerDetailsComponent } from './general-practitioner/gene
 import { GeneralPractitionerUpdateComponent } from './general-practitioner/general-practitioner-update.component';
 import { ProfileUpdateComponent } from './profile/profile-update.component';
 import { PasswordUpdateComponent } from './profile/password-update.component';
+import { SelectPractitionerComponent } from './appointment/select-practitioner.component';
 
 
 
 const routes: Routes = [
   {path: '', component: IndexComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'registration', component: RegistrationComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [guard], data: {expectedRole: ['user','practitioner','admin']}},
   {path: 'profile-update', component: ProfileUpdateComponent, canActivate: [guard], data: {expectedRole: ['user','practitioner','admin']}},
   {path: 'password-update', component: PasswordUpdateComponent, canActivate: [guard], data: {expectedRole: ['user','practitioner','admin']}},
-  {path: 'login', component: LoginComponent},
-  {path: 'registration', component: RegistrationComponent},
+  {path: 'select-practitioner', component: SelectPractitionerComponent, canActivate: [guard], data: {expectedRole: ['user','practitioner','admin']}},
   {path: 'practitioners', component: GeneralPractitionerListComponent, canActivate: [guard], data: {expectedRole: ['admin']}},
   {path: 'details/:id', component: GeneralPractitionerDetailsComponent, canActivate: [guard], data: {expectedRole: ['admin']}},
   {path: 'update/:id', component: GeneralPractitionerUpdateComponent, canActivate: [guard], data: {expectedRole: ['admin']}},

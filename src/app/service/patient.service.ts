@@ -25,4 +25,8 @@ export class PatientService {
   public updatePassword(username: string, password: string): Observable<User>{
     return this.httpClient.put<User>(this.authURL+'password-update/' + username, password);
   }
+
+  public savePractitioner(username: string, practitionerId: number): Observable<User>{
+    return this.httpClient.put<User>(this.authURL+'select-practitioner/' + username, practitionerId);
+  }
 }
