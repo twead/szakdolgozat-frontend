@@ -19,6 +19,7 @@
       <a mat-button *ngIf="isAdmin" routerLink="/profile" class="sidelistelements"><i class="fas fa-user-circle"></i> Adatlap </a>
       <a mat-button routerLink="/" class="sidelistelements"><i class="fas fa-home"></i> Kezdőlap </a>
       <a mat-button *ngIf="isAdmin" routerLink="/practitioners" class="sidelistelements"><i class="fas fa-sign-in-alt"></i> Orvosok </a>
+      <a mat-button *ngIf="isAdmin" routerLink="/select-practitioner" class="sidelistelements"><i class="fas fa-user-circle"></i> Időpontfoglalás </a>
       <a mat-raised-button color="primary" *ngIf="!isLogged" routerLink="/login" class="sidelistelements"><i class="fas fa-sign-in-alt"></i> Bejelentkezés </a>
       <a mat-raised-button color="warn" *ngIf="isLogged" (click)="onLogout()" style="cursor: pointer;" class="sidelistelements"><i class="fas fa-door-open"></i> Kijelentkezés </a>
     </mat-nav-list>

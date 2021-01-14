@@ -1,0 +1,29 @@
+<app-main-nav></app-main-nav>
+<div class="container col-lg-12" *ngIf="!profileData.userProfile?.practitionerId; else schedule">
+<mat-card class="practitioner-card col-lg-3" *ngFor="let practitioner of practitioners">
+  <mat-card-header>
+    <mat-card-title id="practitioner-name"><b>{{practitioner.name}}</b></mat-card-title>
+    <mat-card-subtitle>Háziorvos</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="https://image.freepik.com/free-vector/doctor-character-background_1270-84.jpg">
+  <mat-card-content>
+    <p>
+      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+      bred for hunting.
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="selectedPractitioner(practitioner.id)">Kiválaszt</button>
+  </mat-card-actions>
+</mat-card>
+</div>
+
+
+<ng-template #schedule>
+<div class="container">
+
+  <h1>Itt lesz majd az időpont egyeztetős rész</h1>
+
+</div>
+</ng-template>

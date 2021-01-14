@@ -22,6 +22,10 @@ export class AdminDashboardService {
     return this.httpClient.get<Array<User>>(this.authURL+'practitioners');
   }
 
+  public getAllPractitionerExceptMe(name: string): Observable<Array<User>>{
+    return this.httpClient.get<Array<User>>(this.authURL+'schedule-practitioners/' + name);
+  }
+
   public getPractionerById(id: number): Observable<User>{
     return this.httpClient.get<User>(this.authURL+'details/' + id);
   }
