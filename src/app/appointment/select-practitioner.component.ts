@@ -19,7 +19,7 @@ export class SelectPractitionerComponent implements OnInit {
   practitioners: Array<User> = [];
   errorMessage: string;
 
-  constructor(private adminService: AdminDashboardService, private patietService: PatientService,
+  constructor(private patientService: PatientService, private patietService: PatientService,
               private tokenService: TokenService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -46,7 +46,7 @@ export class SelectPractitionerComponent implements OnInit {
   }
 
   getPractitioners() {
-    this.adminService.getAllPractitionerExceptMe(this.username).subscribe(
+    this.patientService.getAllPractitionerExceptMe(this.username).subscribe(
       response => {
         this.practitioners = response;
       },

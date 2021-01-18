@@ -28,7 +28,6 @@ export class UserInterceptorService implements HttpInterceptor {
       if (error.status === 401) {
         const dto: JwtDto = new JwtDto(this.tokenService.getToken());
         return this.authService.refresh(dto).pipe(concatMap((data: any) => {
-          console.log("refreshing...");
           this.tokenService.setToken(data.token);
           intReq = this.addToken(req, data.token);
           return next.handle(intReq);

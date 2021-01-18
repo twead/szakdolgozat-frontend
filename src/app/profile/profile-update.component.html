@@ -12,43 +12,26 @@
           <mat-form-field color="accent" appearance="fill">
             <mat-label>Teljes név</mat-label>
             <input
+              [(ngModel)]="updateProfile.name"
               name="name"
               id="name"
               matInput
-              [(ngModel)]="updateProfile.name"
+              maxlength="40"
+              #nameError="ngModel"
               required
             />
-            <mat-hint align="start">Név megadása kötelező</mat-hint>
-          </mat-form-field>
-
-          <mat-form-field color="accent" appearance="fill">
-            <mat-label>Felhasználónév</mat-label>
-            <input
-              [(ngModel)]="updateProfile.username"
-              name="username"
-              id="username"
-              matInput
-              #usernameError="ngModel"
-              minlength="5"
-              maxlength="15"
-              pattern="[A-Za-z0-9]+"
-              required
-            />
-            <mat-hint align="start">Minimum 5, maximum 15 karakter.</mat-hint>
             <div
               class="alert alert-danger"
-              *ngIf="usernameError.invalid && usernameError.touched"
+              *ngIf="nameError.invalid && nameError.touched"
             >
-              <div *ngIf="usernameError.errors.required">
-                Felhasználónév megadása kötelező!
+              <div *ngIf="nameError.errors.required">
+                Név megadása kötelező!
               </div>
-              <div *ngIf="usernameError.errors.minlength">
-                Minimum {{ usernameError.errors.minlength.requiredLength }} karakter hosszúságú legyen!
-              </div>
-              <div *ngIf="usernameError.errors.pattern">
-                Csak kis- és nagybetűket, illetve számokat tartalmazhat!
+              <div *ngIf="nameError.errors.maxlength">
+                Maximum 40 karakter hosszú lehet.
               </div>
             </div>
+            <mat-hint align="start">Név megadása kötelező</mat-hint>
           </mat-form-field>
 
           <mat-form-field color="accent" appearance="fill">
@@ -59,6 +42,7 @@
               id="email"
               matInput
               #emailError="ngModel"
+              maxlength="40"
               pattern="[a-z0-9_.+-]+@[a-z0-9-]+\.[a-z0-9-]+"
               required
             />
@@ -67,10 +51,13 @@
               *ngIf="emailError.invalid && emailError.touched"
             >
               <div *ngIf="emailError.errors.required">
-                Jelszó megadása kötelező!
+                Email megadása kötelező!
               </div>
               <div *ngIf="emailError.errors.pattern">
                 Meg kell felelnie a mintának.
+              </div>
+              <div *ngIf="emailError.errors.maxlength">
+                Maximum 40 karakter hosszú lehet.
               </div>
             </div>
             <mat-hint align="start">Email cím megadása kötelező</mat-hint>

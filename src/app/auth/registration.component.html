@@ -57,6 +57,7 @@
               (change)="log(password)"
               minlength="8"
               maxlength="30"
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
               required
             />
             <div
@@ -69,6 +70,9 @@
               <div *ngIf="passwordError.errors.minlength">
                 Minimum {{ passwordError.errors.minlength.requiredLength }} karakter hosszúságú legyen!
               </div>
+              <div *ngIf="passwordError.errors.pattern">
+                Tartalmazzon számokat kis és nagybetűket.
+              </div>
             </div>
             <mat-hint align="start"
               >Minimum 8, maximum 30 karakter hosszú, tartalmazzon számokat kis
@@ -78,7 +82,26 @@
 
           <mat-form-field color="accent" appearance="fill">
             <mat-label>Teljes név</mat-label>
-            <input name="name" id="name" matInput [(ngModel)]="name" required />
+            <input
+              [(ngModel)]="name"
+              name="name"
+              id="name"
+              matInput
+              maxlength="40"
+              #nameError="ngModel"
+              required
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="nameError.invalid && nameError.touched"
+            >
+              <div *ngIf="nameError.errors.required">
+                Név megadása kötelező!
+              </div>
+              <div *ngIf="nameError.errors.maxlength">
+                Maximum 40 karakter hosszú lehet.
+              </div>
+            </div>
             <mat-hint align="start">Név megadása kötelező</mat-hint>
           </mat-form-field>
 
@@ -99,10 +122,13 @@
               *ngIf="emailError.invalid && emailError.touched"
             >
               <div *ngIf="emailError.errors.required">
-                Jelszó megadása kötelező!
+                Email megadása kötelező!
               </div>
               <div *ngIf="emailError.errors.pattern">
                 Meg kell felelnie a mintának.
+              </div>
+              <div *ngIf="emailError.errors.maxlength">
+                Maximum 40 karakter hosszú lehet.
               </div>
             </div>
             <mat-hint align="start">Email cím megadása kötelező</mat-hint>

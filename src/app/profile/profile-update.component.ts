@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../model/user';
 import { PatientService } from '../service/patient.service';
@@ -51,7 +51,6 @@ export class ProfileUpdateComponent implements OnInit {
     this.patientService.updateProfile(this.username, this.updateProfile)
       .subscribe(data => {
         console.log(data);
-//        this.updateProfile;
         this.gotoList();
       }, err => {
         this.errorMessage = err.error.message;

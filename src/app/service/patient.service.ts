@@ -21,11 +21,15 @@ export class PatientService {
     return this.httpClient.put<User>(this.patientURL+'profile-update/' + username, profile);
   }
 
-  public updatePassword(username: string, password: string): Observable<User>{
-    return this.httpClient.put<User>(this.patientURL+'password-update/' + username, password);
+  public updatePassword(username: string, password: string){
+    return this.httpClient.put(this.patientURL+'password-update/' + username, password);
   }
 
-  public savePractitioner(username: string, practitionerId: number): Observable<User>{
-    return this.httpClient.put<User>(this.patientURL+'select-practitioner/' + username, practitionerId);
+  public getAllPractitionerExceptMe(name: string): Observable<Array<User>>{
+    return this.httpClient.get<Array<User>>(this.patientURL+'appointment/schedule-practitioners/' + name);
+  }
+
+  public savePractitioner(username: string, practitionerId: number){
+    return this.httpClient.put(this.patientURL+'appointment/select-practitioner/' + username, practitionerId);
   }
 }

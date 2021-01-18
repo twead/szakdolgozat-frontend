@@ -32,6 +32,7 @@ export class MainNavComponent {
 
   onLogout(): void {
       this.tokenService.logOut();
+      window.location.reload()
       this.router.navigate(['/']);
   }
 }
