@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { User } from '../model/user';
-import { AdminDashboardService } from '../service/admin-dashboard.service';
+import { User } from 'src/app/model/user';
+import { AdminDashboardService } from 'src/app/service/admin-dashboard.service';
 
 @Component({
   selector: 'app-general-practitioner-list',
@@ -13,6 +13,9 @@ export class GeneralPractitionerListComponent implements OnInit {
 
   practitioners: Array<User> = [];
   errorMessage: string;
+  name: any;
+  totalRecords: number;
+  page:number = 1;
 
   constructor(private adminService: AdminDashboardService, private router: Router,
               private toastr: ToastrService) { }
@@ -22,10 +25,9 @@ export class GeneralPractitionerListComponent implements OnInit {
   }
 
   deletePractitioner(id: number) {
-    this.adminService.deletePractitioner(id)
+    this.adminService.deletePatient(id)
       .subscribe(
         data => {
-          console.log(data);
           this.getPractitioners();
         },
         err => {
@@ -33,7 +35,6 @@ export class GeneralPractitionerListComponent implements OnInit {
           this.toastr.error(this.errorMessage, 'Hiba!', {
             timeOut: 3000,  positionClass: 'toast-top-center',
           });
-          console.log(err)
         }
       );
   }
@@ -50,11 +51,21 @@ export class GeneralPractitionerListComponent implements OnInit {
   }
 
   getPractitionerDetails(id: number){
-    this.router.navigate(['details', id]);
+    this.router.navigate(['practitioners/details', id]);
   }
 
   updatePractitioner(id: number){
-    this.router.navigate(['update', id]);
+    this.router.navigate(['practitioners/update', id]);
+  }
+
+  search(){
+    if(this.name == ""){
+      this.ngOnInit();
+    } else{
+      this.practitioners = this.practitioners.filter(res=>{
+        return res.patient.name.toLocaleLowerCase().match(this.name.toLocaleLowerCase());
+      })
+    }
   }
 
 }

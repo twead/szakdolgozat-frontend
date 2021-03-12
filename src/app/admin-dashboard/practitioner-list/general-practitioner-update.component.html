@@ -1,0 +1,34 @@
+<app-main-nav></app-main-nav>
+<div class="container">
+  <h3>Háziorvos módosítása</h3>
+  <div style="width: 400px;">
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Név</label>
+        <input type="text" class="form-control" id="name" required [(ngModel)]="name" name="name">
+      </div>
+
+      <div class="form-group">
+        <label for="name">Felhasználónév</label>
+        <input type="text" class="form-control" id="username" required [(ngModel)]="username" name="username">
+      </div>
+
+      <div class="form-group">
+        <label for="name">Email</label>
+        <input type="text" class="form-control" id="email" required [(ngModel)]="email" name="email">
+      </div>
+
+      <div class="form-group">
+        <label for="name">Lakcím</label>
+        <input type="text" class="form-control" id="address" required [(ngModel)]="address" name="address">
+      </div>
+
+      <div class="form-group">
+        <label for="name">Születési dátum</label>
+        <input type="text" class="form-control" id="dateOfBorn" required [(ngModel)]="dateOfBorn" name="dateOfBorn">
+      </div>
+
+      <button type="submit" class="btn btn-success">Módosít</button>
+    </form>
+  </div>
+</div>

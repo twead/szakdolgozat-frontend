@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../model/user';
-import { AdminDashboardService } from '../service/admin-dashboard.service';
+import { AppointmentService } from '../service/appointment.service';
 import { PatientService } from '../service/patient.service';
 import { TokenService } from '../service/token.service';
 
@@ -19,8 +18,8 @@ export class SelectPractitionerComponent implements OnInit {
   practitioners: Array<User> = [];
   errorMessage: string;
 
-  constructor(private patientService: PatientService, private patietService: PatientService,
-              private tokenService: TokenService, private router: Router, private toastr: ToastrService) { }
+  constructor(private appointmentService: AppointmentService, private patientService: PatientService,
+              private tokenService: TokenService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getProfile();
@@ -30,7 +29,7 @@ export class SelectPractitionerComponent implements OnInit {
   getProfile(){
     this.profileData = new User();
 
-    this.patietService.getProfileDetails(this.username)
+    this.patientService.getProfileDetails(this.username)
       .subscribe(
         data => {
           this.profileData = data;
@@ -39,14 +38,13 @@ export class SelectPractitionerComponent implements OnInit {
           this.toastr.error('Nem létezik a felhasználó', 'Hiba!', {
             timeOut: 3000,  positionClass: 'toast-top-center',
           });
-          console.log(err)
         }
 
       );
   }
 
   getPractitioners() {
-    this.patientService.getAllPractitionerExceptMe(this.username).subscribe(
+    this.appointmentService.getAllPractitionerExceptMe(this.username).subscribe(
       response => {
         this.practitioners = response;
       },
@@ -54,21 +52,21 @@ export class SelectPractitionerComponent implements OnInit {
         this.toastr.error('Nem létezik a felhasználó', 'Hiba!', {
           timeOut: 3000,  positionClass: 'toast-top-center',
         });
-        console.log(err)
       }
     );
   }
 
   selectedPractitioner(practitionerId: number){
-    this.patietService.savePractitioner(this.username, practitionerId)
+    this.appointmentService.savePractitioner(this.username, practitionerId)
     .subscribe(data => {
-      console.log(data);
+      this.toastr.success('Háziorvosod kiválasztottad!', 'OK', {
+        timeOut: 3000,  positionClass: 'toast-top-center',
+      });
     }, err => {
       this.errorMessage = err.error.message;
       this.toastr.error(this.errorMessage, 'Hiba!', {
         timeOut: 3000,  positionClass: 'toast-top-center',
       });
-      console.log(err)
     }
   );
   window.location.reload();

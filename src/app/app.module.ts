@@ -11,6 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,14 +27,18 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { GeneralPractitionerListComponent } from './general-practitioner/general-practitioner-list.component';
 import { ProfileComponent } from './profile/profile.component';
-import { GeneralPractitionerDetailsComponent } from './general-practitioner/general-practitioner-details.component';
-import { GeneralPractitionerUpdateComponent } from './general-practitioner/general-practitioner-update.component';
 import { ProfileUpdateComponent } from './profile/profile-update.component';
 import { PasswordUpdateComponent } from './profile/password-update.component';
 import { interceptorProvider } from './interceptor/user-interceptor.service';
 import { SelectPractitionerComponent } from './appointment/select-practitioner.component';
+import { PatientDetailsComponent } from './admin-dashboard/patient-list/patient-details.component';
+import { PatientListComponent } from './admin-dashboard/patient-list/patient-list.component';
+import { PatientUpdateComponent } from './admin-dashboard/patient-list/patient-update.component';
+import { GeneralPractitionerDetailsComponent } from './admin-dashboard/practitioner-list/general-practitioner-details.component';
+import { GeneralPractitionerListComponent } from './admin-dashboard/practitioner-list/general-practitioner-list.component';
+import { GeneralPractitionerUpdateComponent } from './admin-dashboard/practitioner-list/general-practitioner-update.component';
+
 
 @NgModule({
   declarations: [
@@ -48,6 +54,9 @@ import { SelectPractitionerComponent } from './appointment/select-practitioner.c
     ProfileUpdateComponent,
     PasswordUpdateComponent,
     SelectPractitionerComponent,
+    PatientListComponent,
+    PatientDetailsComponent,
+    PatientUpdateComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,7 +76,9 @@ import { SelectPractitionerComponent } from './appointment/select-practitioner.c
     MatIconModule,
     MatListModule,
     LayoutModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatTableModule,
+    NgxPaginationModule
   ],
   providers: [
     interceptorProvider,

@@ -1,5 +1,5 @@
+import { Patient } from './patient';
 import { Role } from './role';
-import { Userprofile } from './userprofile';
 
 export class User {
 
@@ -7,10 +7,10 @@ export class User {
     public id: number = null,
     public username: string = null,
     public password: string = null,
-    public email: string = null,
-    public name: string = null,
+    public activation: string = null,
+    public isenabled: boolean = false,
     public roles: Array<Role> = [],
-    public userProfile: Userprofile = null
+    public patient: Patient = null
     ){}
 
 

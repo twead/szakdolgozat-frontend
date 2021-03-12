@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/']);
       },
       err => {
-        this.errorMessage = err.error.message;
+        this.errorMessage = err.error?.message;
         this.toastr.error(this.errorMessage, 'Hiba!', {
           timeOut: 3000,  positionClass: 'toast-top-center',
         });

@@ -13,24 +13,28 @@ export class AdminDashboardService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getAllPatients(): Observable<Array<User>>{
+  public getAllPatient(): Observable<Array<User>>{
     return this.httpClient.get<Array<User>>(this.dashboardURL+'patients');
+  }
+
+  public getPatientById(id: number): Observable<User>{
+    return this.httpClient.get<User>(this.dashboardURL+'patients/details/' + id);
+  }
+
+  public updatePatient(id: number, practitioner: User): Observable<User>{
+    return this.httpClient.put<User>(this.dashboardURL+'patients/update/' + id, practitioner);
+  }
+
+  public updateToPractitioner(id: number){
+    return this.httpClient.get(this.dashboardURL+'patients/update-to-practitioner/' + id);
+  }
+
+  public deletePatient(id: number){
+    return this.httpClient.delete(this.dashboardURL + 'patients/delete/' + id);
   }
 
   public getAllPractitioner(): Observable<Array<User>>{
     return this.httpClient.get<Array<User>>(this.dashboardURL+'practitioners');
-  }
-
-  public getPractionerById(id: number): Observable<User>{
-    return this.httpClient.get<User>(this.dashboardURL+'details/' + id);
-  }
-
-  public updatePractitioner(id: number, practitioner: User): Observable<User>{
-    return this.httpClient.put<User>(this.dashboardURL+'update/' + id, practitioner);
-  }
-
-  public deletePractitioner(id: number){
-    return this.httpClient.delete(this.dashboardURL + 'delete/' + id);
   }
 
 }

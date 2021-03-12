@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PatientService } from '../service/patient.service';
@@ -27,7 +26,9 @@ constructor(private tokenService: TokenService, private patientService: PatientS
   editProfile() {
     this.patientService.updatePassword(this.username, this.password)
       .subscribe(data => {
-        console.log(data);
+        this.toastr.error('', 'Sikeres jelszó módosítás!', {
+          timeOut: 3000,  positionClass: 'toast-top-center',
+        });
         this.gotoList();
       }, err => {
         this.errorMessage = err.error.message;

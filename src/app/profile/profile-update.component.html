@@ -12,7 +12,7 @@
           <mat-form-field color="accent" appearance="fill">
             <mat-label>Teljes név</mat-label>
             <input
-              [(ngModel)]="updateProfile.name"
+              [(ngModel)]="name"
               name="name"
               id="name"
               matInput
@@ -37,7 +37,7 @@
           <mat-form-field color="accent" appearance="fill">
             <mat-label>Email</mat-label>
             <input
-              [(ngModel)]="updateProfile.email"
+              [(ngModel)]="email"
               name="email"
               id="email"
               matInput
@@ -92,58 +92,6 @@
               required
             />
             <mat-hint align="start">Lakcím megadása kötelező</mat-hint>
-          </mat-form-field>
-
-          <mat-form-field color="accent" appearance="fill">
-            <mat-label>Személyazonosító igazolvány szám</mat-label>
-            <input
-              [(ngModel)]="idCard"
-              name="idCard"
-              id="idCard"
-              matInput
-              #idCardError="ngModel"
-              pattern="[0-9]{6}[A-Z]{2}"
-              required
-            />
-            <div
-              class="alert alert-danger"
-              *ngIf="idCardError.invalid && idCardError.touched"
-            >
-              <div *ngIf="idCardError.errors.required">
-                Személyazonosító igazolvány szám megadása kötelező!
-              </div>
-              <div *ngIf="idCardError.errors.pattern">
-                Meg kell felelnie a mintának.
-              </div>
-            </div>
-            <mat-hint align="start"
-              >Személyazonosító igazolvány szám megadása kötelező</mat-hint
-            >
-          </mat-form-field>
-
-          <mat-form-field color="accent" appearance="fill">
-            <mat-label>TAJ kártya szám</mat-label>
-            <input
-              [(ngModel)]="socSecNum"
-              name="socSecNum"
-              id="socSecNum"
-              matInput
-              #socSecNumError="ngModel"
-              pattern="[0-9]{9}"
-              required
-            />
-            <div
-              class="alert alert-danger"
-              *ngIf="socSecNumError.invalid && socSecNumError.touched"
-            >
-              <div *ngIf="socSecNumError.errors.required">
-                TAJ kártya szám megadása kötelező!
-              </div>
-              <div *ngIf="socSecNumError.errors.pattern">
-                Meg kell felelnie a mintának.
-              </div>
-            </div>
-            <mat-hint align="start">TAJ kártya szám megadása kötelező. (Ne használjon szóközöket és kötőjeleket.)</mat-hint>
           </mat-form-field>
 
           <mat-card-actions>

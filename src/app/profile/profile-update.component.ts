@@ -16,9 +16,9 @@ export class ProfileUpdateComponent implements OnInit {
   updateProfile: User;
   errorMessage: string;
 
+  name: string;
+  email: string;
   address: string;
-	idCard: string;
-  socSecNum: string;
   dateOfBorn: Date;
 
   minDate = new Date(1900,1,1);
@@ -34,23 +34,22 @@ export class ProfileUpdateComponent implements OnInit {
     this.patientService.getProfileDetails(this.username)
     .subscribe(data => {
       this.updateProfile = data;
-      this.address = this.updateProfile.userProfile.address;
-      this.idCard = this.updateProfile.userProfile.idCard;
-      this.socSecNum = this.updateProfile.userProfile.socSecNum;
-      this.dateOfBorn = this.updateProfile.userProfile.dateOfBorn;
+      this.name = this.updateProfile.patient.name;
+      this.email = this.updateProfile.patient.email;
+      this.address = this.updateProfile.patient.address;
+      this.dateOfBorn = this.updateProfile.patient.dateOfBorn;
     }, error => console.log(error));
 
   }
 
   editProfile() {
-    this.updateProfile.userProfile.address = this.address;
-    this.updateProfile.userProfile.idCard = this.idCard;
-    this.updateProfile.userProfile.socSecNum = this.socSecNum;
-    this.updateProfile.userProfile.dateOfBorn = this.dateOfBorn;
+    this.updateProfile.patient.name = this.name;
+    this.updateProfile.patient.email = this.email;
+    this.updateProfile.patient.address = this.address;
+    this.updateProfile.patient.dateOfBorn = this.dateOfBorn;
 
     this.patientService.updateProfile(this.username, this.updateProfile)
       .subscribe(data => {
-        console.log(data);
         this.gotoList();
       }, err => {
         this.errorMessage = err.error.message;

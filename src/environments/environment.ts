@@ -5,12 +5,14 @@
 export const environment = {
   production: false,
   authURL: "http://localhost:8080/auth/",
-  patientURL: "http://localhost:8080/api/",
-  dashboardURL: "http://localhost:8080/api/dashboard/"
+  patientURL: "http://localhost:8080/api/profile/",
+  dashboardURL: "http://localhost:8080/api/dashboard/",
+  appointmentURL: "http://localhost:8080/api/appointment/"
   // ng build --prod
-  //  authURL: "https://onlinehealthcaresystem.herokuapp.com/api/",
-  //  patientURL: "https://onlinehealthcaresystem.herokuapp.com/api/",
-  //  dashboardURL : "https://onlinehealthcaresystem.herokuapp.com/api/"
+  //  authURL: "https://onlinehealthcaresystem.herokuapp.com/auth/",
+  //  patientURL: "https://onlinehealthcaresystem.herokuapp.com/api/profile/",
+  //  dashboardURL : "https://onlinehealthcaresystem.herokuapp.com/api/dashboard/",
+  //  appointmentURL: "https://onlinehealthcaresystem.herokuapp.com/api/appointment/"
 };
 
 /*

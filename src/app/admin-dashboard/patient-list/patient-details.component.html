@@ -1,0 +1,27 @@
+<app-main-nav></app-main-nav>
+<div class="container">
+  <h2>Páciens részletek</h2>
+
+  <hr/>
+  <div *ngIf="patient">
+    <div>
+      <label><b>Név: </b></label> {{patient.patient.name}}
+    </div>
+    <div>
+      <label><b>Felhasználónév: </b></label> {{patient.username}}
+    </div>
+    <div>
+      <label><b>Email: </b></label> {{patient.patient.email}}
+    </div>
+    <div>
+      <label><b>Lakcím: </b></label> {{patient.patient.address}}
+    </div>
+    <div>
+      <label><b>Születési dátum: </b></label> {{patient.patient.dateOfBorn}}
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <button (click)="list()" class="btn btn-primary">Vissza a páciens listához</button><br>
+</div>

@@ -41,11 +41,11 @@ export class ProfileComponent implements OnInit {
     }
 
     updateProfile(){
-      this.router.navigate(['profile-update']);
+      this.router.navigate(['profile/update']);
     }
 
     updatePassword(){
-      this.router.navigate(['password-update']);
+      this.router.navigate(['profile/password-update']);
     }
 
 }

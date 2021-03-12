@@ -1,8 +1,10 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { User } from '../model/user';
-import { AdminDashboardService } from '../service/admin-dashboard.service';
+import { User } from 'src/app/model/user';
+import { AdminDashboardService } from 'src/app/service/admin-dashboard.service';
+
 
 @Component({
   selector: 'app-general-practitioner-update',
@@ -17,6 +19,8 @@ export class GeneralPractitionerUpdateComponent implements OnInit {
   name : string;
   username : string;
   email : string;
+  address: string;
+  dateOfBorn: Date;
 
   errorMessage: string;
 
@@ -27,31 +31,38 @@ export class GeneralPractitionerUpdateComponent implements OnInit {
 
     this.id = this.route.snapshot.params['id'];
 
-    this.adminService.getPractionerById(this.id)
+    this.adminService.getPatientById(this.id)
       .subscribe(data => {
         console.log(data)
         this.practitioner = data;
-        this.name = this.practitioner.name;
+        this.name = this.practitioner.patient.name;
         this.username = this.practitioner.username;
-        this.email = this.practitioner.email;
-      }, error => console.log(error));
+        this.email = this.practitioner.patient.email;
+        this.address = this.practitioner.patient.address;
+        this.dateOfBorn = this.practitioner.patient.dateOfBorn;
+      }, error => {
+
+      });
   }
 
   updatePractitioner() {
-    this.practitioner.name = this.name;
+    this.practitioner.patient.name = this.name;
     this.practitioner.username = this.username;
-    this.practitioner.email = this.email;
+    this.practitioner.patient.email = this.email;
+    this.practitioner.patient.address = this.address;
+    this.practitioner.patient.dateOfBorn = this.dateOfBorn;
 
-    this.adminService.updatePractitioner(this.id, this.practitioner)
+    this.adminService.updatePatient(this.id, this.practitioner)
       .subscribe(data => {
-        console.log(data);
+        this.toastr.success('Sikeres módosítás!', 'OK', {
+          timeOut: 3000,  positionClass: 'toast-top-center',
+        });
         this.gotoList();
       }, err => {
         this.errorMessage = err.error.message;
         this.toastr.error(this.errorMessage, 'Hiba!', {
           timeOut: 3000,  positionClass: 'toast-top-center',
         });
-        console.log(err)
       }
     );
   }

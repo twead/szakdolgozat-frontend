@@ -5,13 +5,19 @@
   <hr/>
   <div *ngIf="practitioner">
     <div>
-      <label><b>Név: </b></label> {{practitioner.name}}
+      <label><b>Név: </b></label> {{practitioner.patient.name}}
     </div>
     <div>
       <label><b>Felhasználónév: </b></label> {{practitioner.username}}
     </div>
     <div>
-      <label><b>Email: </b></label> {{practitioner.email}}
+      <label><b>Email: </b></label> {{practitioner.patient.email}}
+    </div>
+    <div>
+      <label><b>Lakcím: </b></label> {{practitioner.patient.address}}
+    </div>
+    <div>
+      <label><b>Születési dátum: </b></label> {{practitioner.patient.dateOfBorn}}
     </div>
   </div>
 
