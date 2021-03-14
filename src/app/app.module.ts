@@ -13,6 +13,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,7 +42,13 @@ import { PatientUpdateComponent } from './admin-dashboard/patient-list/patient-u
 import { GeneralPractitionerDetailsComponent } from './admin-dashboard/practitioner-list/general-practitioner-details.component';
 import { GeneralPractitionerListComponent } from './admin-dashboard/practitioner-list/general-practitioner-list.component';
 import { GeneralPractitionerUpdateComponent } from './admin-dashboard/practitioner-list/general-practitioner-update.component';
+import { AppointmentComponent } from './appointment/appointment.component';
 
+FullCalendarModule.registerPlugins([
+  dayGridPlugin,
+  timeGridPlugin,
+  interactionPlugin
+])
 
 @NgModule({
   declarations: [
@@ -57,6 +67,7 @@ import { GeneralPractitionerUpdateComponent } from './admin-dashboard/practition
     PatientListComponent,
     PatientDetailsComponent,
     PatientUpdateComponent,
+    AppointmentComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +89,8 @@ import { GeneralPractitionerUpdateComponent } from './admin-dashboard/practition
     LayoutModule,
     MatSidenavModule,
     MatTableModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    FullCalendarModule
   ],
   providers: [
     interceptorProvider,
