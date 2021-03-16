@@ -18,12 +18,11 @@ export class SelectPractitionerComponent implements OnInit {
   practitioners: Array<User> = [];
   errorMessage: string;
 
-  constructor(private appointmentService: AppointmentService, private patientService: PatientService,
-              private tokenService: TokenService, private toastr: ToastrService) { }
+  constructor(private patientService: PatientService, private tokenService: TokenService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getProfile();
-    this.getPractitioners();
   }
 
   getProfile(){
@@ -41,34 +40,5 @@ export class SelectPractitionerComponent implements OnInit {
         }
 
       );
-  }
-
-  getPractitioners() {
-    this.appointmentService.getAllPractitionerExceptMe(this.username).subscribe(
-      response => {
-        this.practitioners = response;
-      },
-      err => {
-        this.toastr.error('Nem létezik a felhasználó', 'Hiba!', {
-          timeOut: 3000,  positionClass: 'toast-top-center',
-        });
-      }
-    );
-  }
-
-  selectedPractitioner(practitionerId: number){
-    this.appointmentService.savePractitioner(this.username, practitionerId)
-    .subscribe(data => {
-      this.toastr.success('Háziorvosod kiválasztottad!', 'OK', {
-        timeOut: 3000,  positionClass: 'toast-top-center',
-      });
-    }, err => {
-      this.errorMessage = err.error.message;
-      this.toastr.error(this.errorMessage, 'Hiba!', {
-        timeOut: 3000,  positionClass: 'toast-top-center',
-      });
-    }
-  );
-  window.location.reload();
   }
 }

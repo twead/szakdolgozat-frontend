@@ -43,5 +43,33 @@ b { /* used for event dates/times */
 
 .fc { /* the calendar root */
   max-width: 1100px;
+  height: 1000px;
   margin: 0 auto;
+}
+
+
+@media only screen and (max-width: 767px) {
+  .demo-app-sidebar{
+    display: none;
+  }
+
+  .demo-app-main{
+    padding: 0;
+  }
+
+  .demo-app {
+    font-size: 12px;
+    z-index: -1!important;
+  }
+}
+
+/*Ipad-es nézet*/
+@media only screen and (width: 768px) {
+  .demo-app-sidebar{
+    display: none;
+  }
+
+  .demo-app-main{
+    padding: 0;
+  }
 }

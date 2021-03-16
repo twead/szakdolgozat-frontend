@@ -43,6 +43,7 @@ import { GeneralPractitionerDetailsComponent } from './admin-dashboard/practitio
 import { GeneralPractitionerListComponent } from './admin-dashboard/practitioner-list/general-practitioner-list.component';
 import { GeneralPractitionerUpdateComponent } from './admin-dashboard/practitioner-list/general-practitioner-update.component';
 import { AppointmentComponent } from './appointment/appointment.component';
+import { UpdatePractitionerComponent } from './appointment/update-practitioner.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -67,7 +68,8 @@ FullCalendarModule.registerPlugins([
     PatientListComponent,
     PatientDetailsComponent,
     PatientUpdateComponent,
-    AppointmentComponent
+    AppointmentComponent,
+    UpdatePractitionerComponent
   ],
   imports: [
     BrowserModule,

@@ -15,6 +15,8 @@ import { GeneralPractitionerUpdateComponent } from './admin-dashboard/practition
 import { PatientListComponent } from './admin-dashboard/patient-list/patient-list.component';
 import { PatientDetailsComponent } from './admin-dashboard/patient-list/patient-details.component';
 import { PatientUpdateComponent } from './admin-dashboard/patient-list/patient-update.component';
+import { AppointmentComponent } from './appointment/appointment.component';
+import { UpdatePractitionerComponent } from './appointment/update-practitioner.component';
 
 
 
@@ -25,13 +27,15 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent, canActivate: [ProdGuardService], data: {expectedRole: ['user','practitioner','admin']}},
   {path: 'profile/update', component: ProfileUpdateComponent, canActivate: [ProdGuardService], data: {expectedRole: ['user','practitioner','admin']}},
   {path: 'profile/password-update', component: PasswordUpdateComponent, canActivate: [ProdGuardService], data: {expectedRole: ['user','practitioner','admin']}},
-  {path: 'appointment/select-practitioner', component: SelectPractitionerComponent, canActivate: [ProdGuardService], data: {expectedRole: ['user','practitioner','admin']}},
+  {path: 'appointment/reservation', component: SelectPractitionerComponent, canActivate: [ProdGuardService], data: {expectedRole: ['user','practitioner','admin']}},
   {path: 'practitioners', component: GeneralPractitionerListComponent, canActivate: [ProdGuardService], data: {expectedRole: ['practitioner','admin']}},
   {path: 'practitioners/details/:id', component: GeneralPractitionerDetailsComponent, canActivate: [ProdGuardService], data: {expectedRole: ['practitioner','admin']}},
   {path: 'practitioners/update/:id', component: GeneralPractitionerUpdateComponent, canActivate: [ProdGuardService], data: {expectedRole: ['practitioner','admin']}},
   {path: 'patients', component: PatientListComponent, canActivate: [ProdGuardService], data: {expectedRole: ['practitioner','admin']}},
   {path: 'patients/details/:id', component: PatientDetailsComponent, canActivate: [ProdGuardService], data: {expectedRole: ['practitioner','admin']}},
   {path: 'patients/update/:id', component: PatientUpdateComponent, canActivate: [ProdGuardService], data: {expectedRole: ['practitioner','admin']}},
+  {path: 'appointment/reservation', component: AppointmentComponent, canActivate: [ProdGuardService], data: {expectedRole: ['practitioner','admin']}},
+  {path: 'appointment/update-practitioner', component: UpdatePractitionerComponent, canActivate: [ProdGuardService], data: {expectedRole: ['practitioner','admin']}},
   {path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 

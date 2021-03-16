@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Appointment } from '../model/appointment';
 import { User } from '../model/user';
 
 @Injectable({
@@ -17,7 +18,19 @@ export class AppointmentService {
     return this.httpClient.get<Array<User>>(this.appointmentURL+'schedule-practitioners/' + name);
   }
 
-  public savePractitioner(username: string, practitionerId: number){
-    return this.httpClient.put(this.appointmentURL+'select-practitioner/' + username, practitionerId);
+  public updatePractitioner(username: string, practitionerId: number){
+    return this.httpClient.put(this.appointmentURL+'update-practitioner/' + username, practitionerId);
+  }
+
+  public saveAppointment(username: string, appointment: Appointment){
+    return this.httpClient.post(this.appointmentURL+'create/'+username, appointment);
+  }
+
+  public getAppointments(username: string): Observable<Array<Appointment>>{
+    return this.httpClient.get<Array<Appointment>>(this.appointmentURL+'show/'+ username);
+  }
+
+  public deleteAppointment(id: string){
+    return this.httpClient.delete(this.appointmentURL+'delete/'+ id);
   }
 }

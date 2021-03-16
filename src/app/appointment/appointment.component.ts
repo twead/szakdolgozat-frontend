@@ -1,7 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/angular';
-import { INITIAL_EVENTS, createEventId } from './event-utils';
+import { EventInput } from '@fullcalendar/core'
 import huLocale from '@fullcalendar/core/locales/hu';
+import { Appointment } from '../model/appointment';
+import { AppointmentService } from '../service/appointment.service';
+import { TokenService } from '../service/token.service';
+import { createEventId } from './event-utils';
 
 @Component({
   selector: 'app-appointment',
@@ -10,15 +14,23 @@ import huLocale from '@fullcalendar/core/locales/hu';
 })
 export class AppointmentComponent {
 
-  title = "asdas";
+  username: string = this.tokenService.getUserName();
+  calendarEvents: EventInput[] = [];
+  toSave: Appointment;
 
+  constructor(private service : AppointmentService, private tokenService: TokenService){ }
+
+  ngOnInit(){
+    this.showAppointments();
+  }
 
   calendarVisible = true;
   calendarOptions: CalendarOptions = {
     locale: huLocale,
     headerToolbar: {
-      left: 'prev,next today',
+      left: 'prev,next',
       center: 'title',
+      right: 'today'
     },
     slotDuration: '00:15',
     slotLabelInterval: 15,
@@ -38,8 +50,9 @@ export class AppointmentComponent {
       },
     ],
 
+    events: this.calendarEvents,
     initialView: 'timeGridWeek',
-    initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
+    //initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
     weekends: false,
     editable: false,
     defaultTimedEventDuration:'00:15',
@@ -58,31 +71,60 @@ export class AppointmentComponent {
 
   currentEvents: EventApi[] = [];
 
+  showAppointments(){
+    this.service.getAppointments(this.username).subscribe(
+      data => {
+        data.forEach(element => {
+          this.calendarEvents = this.calendarEvents.concat({
+              id: ''+element.id,
+              title: element.message,
+              start:element.time
+            },)
+        })
+        this.calendarOptions.events = this.calendarEvents;
+      })
+  }
+
+
   handleDateSelect(selectInfo: DateSelectArg) {
-    const title = prompt('Biztosan lefoglalod az időpontot?');
+    const title = prompt('írd le a problémádat pár szóban');
     const calendarApi = selectInfo.view.calendar;
 
     calendarApi.unselect(); // clear date selection
 
     if (title) {
-      calendarApi.addEvent({
-        id: createEventId(),
+        calendarApi.addEvent({
+        id: createEventId()+'f',
         title,
         start: selectInfo.startStr,
         //end: selectInfo.startStr+1,
         //allDay: selectInfo.allDay
       });
+
+
+      this.service.saveAppointment(this.username, new Appointment(null,title,selectInfo.startStr)).subscribe(
+        data => {
+
+        },
+        err => {
+
+        }
+      )
     } else {
-      calendarApi.addEvent({
-        id: createEventId(),
-        title : "foglalás", //in the case of missing title, still save
-        start: selectInfo.startStr,
-      });
+
     }
   }
 
   handleEventClick(clickInfo: EventClickArg) {
     if (confirm(`Biztosan törölöd a foglalásod? '${clickInfo.event.title}'`)) {
+      this.service.deleteAppointment(clickInfo.event.id).subscribe(
+        data => {
+
+        },
+        err => {
+
+        }
+      );
       clickInfo.event.remove();
     }
   }
