@@ -9,12 +9,13 @@ import { ProfileUpdateComponent } from './profile/profile-update.component';
 import { PasswordUpdateComponent } from './profile/password-update.component';
 import { SelectPractitionerComponent } from './appointment/select-practitioner.component';
 import { LoginGuard } from './guard/login.guard';
+import { WorktimeComponent } from './appointment/worktime/worktime.component';
+import { PatientDetailsComponent } from './admin-dashboard/patient-list/patient-details.component';
+import { PatientListComponent } from './admin-dashboard/patient-list/patient-list.component';
+import { PatientUpdateComponent } from './admin-dashboard/patient-list/patient-update.component';
 import { GeneralPractitionerDetailsComponent } from './admin-dashboard/practitioner-list/general-practitioner-details.component';
 import { GeneralPractitionerListComponent } from './admin-dashboard/practitioner-list/general-practitioner-list.component';
 import { GeneralPractitionerUpdateComponent } from './admin-dashboard/practitioner-list/general-practitioner-update.component';
-import { PatientListComponent } from './admin-dashboard/patient-list/patient-list.component';
-import { PatientDetailsComponent } from './admin-dashboard/patient-list/patient-details.component';
-import { PatientUpdateComponent } from './admin-dashboard/patient-list/patient-update.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { UpdatePractitionerComponent } from './appointment/update-practitioner.component';
 
@@ -36,6 +37,7 @@ const routes: Routes = [
   {path: 'patients/update/:id', component: PatientUpdateComponent, canActivate: [ProdGuardService], data: {expectedRole: ['practitioner','admin']}},
   {path: 'appointment/reservation', component: AppointmentComponent, canActivate: [ProdGuardService], data: {expectedRole: ['practitioner','admin']}},
   {path: 'appointment/update-practitioner', component: UpdatePractitionerComponent, canActivate: [ProdGuardService], data: {expectedRole: ['practitioner','admin']}},
+  {path: 'appointment/worktimes', component: WorktimeComponent, canActivate: [ProdGuardService], data: {expectedRole: ['practitioner','admin']}},
   {path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 

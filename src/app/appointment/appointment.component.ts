@@ -2,8 +2,12 @@ import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/angular';
 import { EventInput } from '@fullcalendar/core'
 import huLocale from '@fullcalendar/core/locales/hu';
+import { ToastrService } from 'ngx-toastr';
 import { Appointment } from '../model/appointment';
+import { User } from '../model/user';
+import { Worktime } from '../model/worktime';
 import { AppointmentService } from '../service/appointment.service';
+import { PatientService } from '../service/patient.service';
 import { TokenService } from '../service/token.service';
 import { createEventId } from './event-utils';
 
@@ -18,10 +22,12 @@ export class AppointmentComponent {
   calendarEvents: EventInput[] = [];
   toSave: Appointment;
 
-  constructor(private service : AppointmentService, private tokenService: TokenService){ }
+  constructor(private service : AppointmentService, private toastr: ToastrService,
+    private tokenService: TokenService){ }
 
   ngOnInit(){
-    this.showAppointments();
+    this.getOthersReservations();
+    this.showMyReservations();
   }
 
   calendarVisible = true;
@@ -32,6 +38,7 @@ export class AppointmentComponent {
       center: 'title',
       right: 'today'
     },
+    forceEventDuration: true,
     slotDuration: '00:15',
     slotLabelInterval: 15,
     slotMinTime: '6:00',
@@ -39,16 +46,18 @@ export class AppointmentComponent {
 
     businessHours: [ // specify an array instead
       {
-        daysOfWeek: [ 1, 2, 3 ], // Monday, Tuesday, Wednesday
+        daysOfWeek: [1,2,3], // Monday, Tuesday, Wednesday
         startTime: '08:00', // 8am
         endTime: '18:00' // 6pm
       },
       {
         daysOfWeek: [ 4, 5 ], // Thursday, Friday
         startTime: '10:00', // 10am
-        endTime: '16:00' // 4pm
+        endTime: '16:00', // 4pm
+        backgroundColor: '#dddddd'
       },
     ],
+    //businessHours: this.calendarEvents,
 
     events: this.calendarEvents,
     initialView: 'timeGridWeek',
@@ -71,7 +80,7 @@ export class AppointmentComponent {
 
   currentEvents: EventApi[] = [];
 
-  showAppointments(){
+  showMyReservations(){
     this.service.getAppointments(this.username).subscribe(
       data => {
         data.forEach(element => {
@@ -85,6 +94,22 @@ export class AppointmentComponent {
       })
   }
 
+  getOthersReservations(){
+    this.service.getBusinessHours(this.username).subscribe(
+       data => {
+         data.forEach(element => {
+           this.calendarEvents = this.calendarEvents.concat({
+               id: ''+element.id,
+               title: element.message,
+               start: element.time,
+               backgroundColor: '#dddddd',
+               textColor: '#dddddd',
+               borderColor: '#dddddd'
+             },)
+         })
+         this.calendarOptions.events = this.calendarEvents;
+       })
+     }
 
   handleDateSelect(selectInfo: DateSelectArg) {
     const title = prompt('írd le a problémádat pár szóban');
@@ -101,32 +126,41 @@ export class AppointmentComponent {
         //allDay: selectInfo.allDay
       });
 
-
+                //selectInfo.start.getDay();
       this.service.saveAppointment(this.username, new Appointment(null,title,selectInfo.startStr)).subscribe(
         data => {
-
+          window.location.reload();
         },
         err => {
-
+          this.toastr.error('Sikertelen időpontfoglalás!', 'Hiba!', {
+            timeOut: 3000,  positionClass: 'toast-top-center',
+          });
         }
       )
-    } else {
-
+      this.toastr.success('Sikeres időpontfoglalás!', 'OK', {
+        timeOut: 3000,  positionClass: 'toast-top-center',
+      });
     }
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    if (confirm(`Biztosan törölöd a foglalásod? '${clickInfo.event.title}'`)) {
+    if(clickInfo.event.backgroundColor != '#dddddd'){
+    if (confirm(`Biztosan törölöd a foglalásod? '${clickInfo.event.start}'`)) {
       this.service.deleteAppointment(clickInfo.event.id).subscribe(
         data => {
-
+          this.toastr.success('Sikeres törölted az időpontot!', 'OK', {
+            timeOut: 3000,  positionClass: 'toast-top-center',
+          });
         },
         err => {
-
+          this.toastr.error('Az időpont törlése nem sikerült!', 'Hiba!', {
+            timeOut: 3000,  positionClass: 'toast-top-center',
+          });
         }
       );
       clickInfo.event.remove();
     }
+  }
   }
 
   handleEvents(events: EventApi[]) {

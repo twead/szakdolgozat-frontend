@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Appointment } from '../model/appointment';
 import { User } from '../model/user';
+import { Worktime } from '../model/worktime';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,12 @@ export class AppointmentService {
     return this.httpClient.get<Array<Appointment>>(this.appointmentURL+'show/'+ username);
   }
 
+  public getBusinessHours(username: string): Observable<Array<Appointment>>{
+    return this.httpClient.get<Array<Appointment>>(this.appointmentURL+'show-business-hours/' + username);
+  }
+
   public deleteAppointment(id: string){
     return this.httpClient.delete(this.appointmentURL+'delete/'+ id);
   }
+
 }

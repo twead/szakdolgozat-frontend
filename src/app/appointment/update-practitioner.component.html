@@ -7,19 +7,17 @@
   </mat-card-header>
   <img mat-card-image src="https://image.freepik.com/free-vector/doctor-character-background_1270-84.jpg">
   <mat-card-content>
-    <p>
-      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-      bred for hunting.
-    </p>
+
   </mat-card-content>
-  <mat-card-actions>
-    <button *ngIf="profileData.patient.practitionerId == practitioner.practitioner.id; else inactive"
+  <mat-card-actions  *ngIf="profileData.patient?.practitionerId; else inactive">
+    <button *ngIf="profileData.patient.practitionerId == practitioner.practitioner?.id; else inactive"
       mat-raised-button color="warn" (click)="selectedPractitioner(practitioner.practitioner.id)">Aktív orvos
     </button>
-    <ng-template #inactive>
-      <button #inactive mat-raised-button color="primary" (click)="selectedPractitioner(practitioner.practitioner.id)">Kiválaszt</button>
-    </ng-template>
   </mat-card-actions>
+  <ng-template #inactive>
+    <mat-card-actions>
+        <button #inactive mat-raised-button color="primary" (click)="selectedPractitioner(practitioner.practitioner.id)">Kiválaszt</button>
+    </mat-card-actions>
+</ng-template>
 </mat-card>
 </div>

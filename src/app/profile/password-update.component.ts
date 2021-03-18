@@ -26,7 +26,7 @@ constructor(private tokenService: TokenService, private patientService: PatientS
   editProfile() {
     this.patientService.updatePassword(this.username, this.password)
       .subscribe(data => {
-        this.toastr.error('', 'Sikeres jelszó módosítás!', {
+        this.toastr.success('', 'Sikeres jelszó módosítás!', {
           timeOut: 3000,  positionClass: 'toast-top-center',
         });
         this.gotoList();
