@@ -47,6 +47,23 @@ b { /* used for event dates/times */
   margin: 0 auto;
 }
 
+.fc-media-screen .fc-timegrid-event {
+  bottom: 0px!important;
+  left: -2.0%!important;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 105%;
+  height: 101%!important;
+  padding: 0;
+}
+
+.fc-timegrid-event {
+  border-radius: 0px!important;
+  font-size: .85em;
+  font-size: var(--fc-small-font-size,.85em);
+}
+
 
 @media only screen and (max-width: 767px) {
   .demo-app-sidebar{

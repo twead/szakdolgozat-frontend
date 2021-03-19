@@ -12,6 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -91,6 +92,7 @@ FullCalendarModule.registerPlugins([
     MatToolbarModule,
     MatIconModule,
     MatListModule,
+    MatSelectModule,
     LayoutModule,
     MatSidenavModule,
     MatTableModule,
