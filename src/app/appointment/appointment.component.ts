@@ -1,7 +1,6 @@
-import { getLocaleFirstDayOfWeek } from '@angular/common';
 import { ChangeDetectorRef, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/angular';
-import { EventInput } from '@fullcalendar/core'
+import { BusinessHoursInput, EventInput, parseBusinessHours } from '@fullcalendar/core'
 import huLocale from '@fullcalendar/core/locales/hu';
 import { ToastrService } from 'ngx-toastr';
 import { Appointment } from '../model/appointment';
@@ -9,7 +8,7 @@ import { User } from '../model/user';
 import { AppointmentService } from '../service/appointment.service';
 import { PatientService } from '../service/patient.service';
 import { TokenService } from '../service/token.service';
-import { createEventId } from './event-utils';
+import { createEventId, HOLIDAYS } from './event-utils';
 
 @Component({
   selector: 'app-appointment',
@@ -21,13 +20,21 @@ export class AppointmentComponent {
 
   username: string = this.tokenService.getUserName();
   profileData: User;
-  calendarEvents: EventInput[] = [];
   toSave: Appointment;
   errorMessage: string;
   dayNumber: number = null;
-  //validEndDate: Date = new Date;
 
-//  dayNumber : number = this.dayIndo.view.calendar.getDate().getDay();
+  bh: BusinessHoursInput = [{
+    start: '18:00',
+    end: '20:00',
+    dayOfWeek:[1]
+  }];
+  arNum: Array<number>;
+
+  calendarEvents: EventInput[] = [];
+  myCalendarEventForInstruction: EventInput[] = [];
+
+  wantToWorkOnHolidays: boolean = false;
 
   constructor(private service : AppointmentService, private toastr: ToastrService,
     private tokenService: TokenService, private patientService: PatientService){ }
@@ -36,9 +43,7 @@ export class AppointmentComponent {
     var day = new Date();
     this.dayNumber = day.getDay();
     this.calendarOptions.firstDay = this.dayNumber;
-    /*var now = new Date();
-    this.validEndDate.setFullYear(now.getFullYear() + 1);
-    */
+
     this.getProfile();
     this.getOthersReservations();
     this.showMyReservations();
@@ -47,6 +52,7 @@ export class AppointmentComponent {
   calendarVisible = true;
   calendarOptions: CalendarOptions = {
     locale: huLocale,
+    allDaySlot: false,
     headerToolbar: {
       left: 'prev,next',
       center: 'title',
@@ -68,7 +74,23 @@ export class AppointmentComponent {
       {
         daysOfWeek: [1,2,3], // Monday, Tuesday, Wednesday
         startTime: '08:00', // 8am
-        endTime: '18:00' // 6pm
+        endTime: '18:00', // 6pm
+      },
+      {
+        daysOfWeek: [ 4, 5 ], // Thursday, Friday
+        startTime: '10:00', // 10am
+        endTime: '16:00', // 4pm
+      }
+    ],
+
+    //businessHours: this.bh,
+    //selectConstraint: this.bh,
+
+    selectConstraint:[
+      {
+        daysOfWeek: [1,2,3], // Monday, Tuesday, Wednesday
+        startTime: '08:00', // 8am
+        endTime: '18:00', // 6pm
       },
       {
         daysOfWeek: [ 4, 5 ], // Thursday, Friday
@@ -77,17 +99,10 @@ export class AppointmentComponent {
       },
     ],
 
-    /*selectConstraint: {
-      start: Date.now(),
-      end: '2021-03-23',
-    },*/
-
     validRange: {
       start: Date.now(),
-      end: Date.now() + 1000*60*60*24*365
-      //end: new Date('2022-03-23'),
+      end: Date.now() + 1000*60*60*24*365 //+1 year
     },
-
     events: this.calendarEvents,
     initialView: 'timeGridWeek',
     firstDay: this.dayNumber,
@@ -95,7 +110,7 @@ export class AppointmentComponent {
     editable: false,
     defaultTimedEventDuration:'00:15',
     selectable: true,
-    selectMirror: true,
+    selectMirror: false,
     dayMaxEvents: true,
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
@@ -128,6 +143,8 @@ export class AppointmentComponent {
   }
 
   showMyReservations(){
+
+
     this.service.getAppointments(this.username).subscribe(
       data => {
         data.forEach(element => {
@@ -138,6 +155,7 @@ export class AppointmentComponent {
             },)
         })
         this.calendarOptions.events = this.calendarEvents;
+        this.myCalendarEventForInstruction = this.calendarEvents;
       })
   }
 
@@ -151,22 +169,42 @@ export class AppointmentComponent {
                id: ''+element.id,
                start: element.time,
                backgroundColor: '#dddddd',
-               textColor: '#dddddd',
+               textColor: '#000000',
                borderColor: '#dddddd',
                color: '#dddddd',
                className: 'disabled'
              },);
          })
-         this.calendarOptions.events = this.calendarEvents;
+
+
+        if(this.wantToWorkOnHolidays == false)
+         HOLIDAYS.forEach(element => {
+          this.calendarEvents = this.calendarEvents.concat({
+            id: createEventId()+1111,
+            start: element.start,
+            end: element.end,
+            backgroundColor: '#dddddd',
+            textColor: '#000000',
+            borderColor: '#dddddd',
+            color: '#dddddd',
+            className: 'disabled'
+          })
+        })
+        this.calendarOptions.events = this.calendarEvents;
+
        })
+
+
      }
 
   handleDateSelect(selectInfo: DateSelectArg) {
     const calendarApi = selectInfo.view.calendar;
     calendarApi.unselect(); // clear date selection
 
-    /*if ((Date.now() - selectInfo.start.getTime()) >= 0)
-      return false;*/
+   /* if(calendarApi.getDate() == TODAY_STR){
+      alert("Ide nem foglalhatsz, ez ünnepnap!");
+      return false;
+    }*/
 
     if(confirm("Biztosan foglalsz?")){
     const title = prompt('Ha szeretnéd, írd le a problémádat pár szóban');
@@ -184,7 +222,7 @@ export class AppointmentComponent {
         start: selectInfo.startStr
       });
     }
-                //selectInfo.start.getDay();
+
       this.service.saveAppointment(this.username, new Appointment(null,title?title:this.profileData.patient.name,selectInfo.startStr)).subscribe(
         data => {
           this.toastr.success('Sikeres időpontfoglalás!', 'OK', {
