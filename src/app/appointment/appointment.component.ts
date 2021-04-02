@@ -1,8 +1,9 @@
-import { ChangeDetectorRef, Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/angular';
-import { BusinessHoursInput, EventInput, parseBusinessHours } from '@fullcalendar/core'
+import { BusinessHoursInput, EventInput } from '@fullcalendar/core'
 import huLocale from '@fullcalendar/core/locales/hu';
 import { ToastrService } from 'ngx-toastr';
+import { InstructionDto } from '../dto/instruction-dto';
 import { Appointment } from '../model/appointment';
 import { User } from '../model/user';
 import { AppointmentService } from '../service/appointment.service';
@@ -32,9 +33,11 @@ export class AppointmentComponent {
   arNum: Array<number>;
 
   calendarEvents: EventInput[] = [];
-  myCalendarEventForInstruction: EventInput[] = [];
+  customBusinessHours: EventInput[] = [];
+  myCalendarEventForInstruction?: InstructionDto[] = [];
 
-  wantToWorkOnHolidays: boolean = false;
+  wantToWorkOnHolidays: boolean;
+
 
   constructor(private service : AppointmentService, private toastr: ToastrService,
     private tokenService: TokenService, private patientService: PatientService){ }
@@ -45,8 +48,7 @@ export class AppointmentComponent {
     this.calendarOptions.firstDay = this.dayNumber;
 
     this.getProfile();
-    this.getOthersReservations();
-    this.showMyReservations();
+
   }
 
   calendarVisible = true;
@@ -70,38 +72,13 @@ export class AppointmentComponent {
     slotMinTime: '6:00',
     slotMaxTime: '20:00',
 
-    businessHours: [ // specify an array instead
-      {
-        daysOfWeek: [1,2,3], // Monday, Tuesday, Wednesday
-        startTime: '08:00', // 8am
-        endTime: '18:00', // 6pm
-      },
-      {
-        daysOfWeek: [ 4, 5 ], // Thursday, Friday
-        startTime: '10:00', // 10am
-        endTime: '16:00', // 4pm
-      }
-    ],
+    businessHours: [],
 
-    //businessHours: this.bh,
-    //selectConstraint: this.bh,
-
-    selectConstraint:[
-      {
-        daysOfWeek: [1,2,3], // Monday, Tuesday, Wednesday
-        startTime: '08:00', // 8am
-        endTime: '18:00', // 6pm
-      },
-      {
-        daysOfWeek: [ 4, 5 ], // Thursday, Friday
-        startTime: '10:00', // 10am
-        endTime: '16:00', // 4pm
-      },
-    ],
+    selectConstraint:[],
 
     validRange: {
       start: Date.now(),
-      end: Date.now() + 1000*60*60*24*365 //+1 year
+      end: Date.now() + 1000*60*60*24*31 //+1 year
     },
     events: this.calendarEvents,
     initialView: 'timeGridWeek',
@@ -126,12 +103,14 @@ export class AppointmentComponent {
   currentEvents: EventApi[] = [];
 
   getProfile(){
+
     this.profileData = new User();
 
     this.patientService.getProfileDetails(this.username)
       .subscribe(
         data => {
           this.profileData = data;
+          this.doesYourDoctorWorkOnHolidays();
         },
         err => {
           this.toastr.error('Nem létezik a felhasználó', 'Hiba!', {
@@ -142,9 +121,35 @@ export class AppointmentComponent {
       );
   }
 
+  doesYourDoctorWorkOnHolidays(){
+    this.service.getWorksOnHolidays(this.username).subscribe(
+      data => {
+        this.wantToWorkOnHolidays = data.worksOnHoliday;
+        this.getYourDoctorBusinessHours();
+      },
+      error => {
+
+      }
+    )
+  }
+
+  getYourDoctorBusinessHours(){
+    this.service.getBusinessHours(this.username).subscribe(
+      data => {
+        data.forEach(element => {
+          this.customBusinessHours = this.customBusinessHours.concat({
+            daysOfWeek: [element.day],
+            startTime: element.fromTime,
+            endTime: element.toTime,
+            },)
+        })
+        this.calendarOptions.businessHours = this.customBusinessHours;
+        this.calendarOptions.selectConstraint = this.customBusinessHours;
+        this.showMyReservations();
+      })
+  }
+
   showMyReservations(){
-
-
     this.service.getAppointments(this.username).subscribe(
       data => {
         data.forEach(element => {
@@ -153,14 +158,25 @@ export class AppointmentComponent {
               title: element.message,
               start:element.time
             },)
+            this.showAppointmentsForInstruction();
         })
         this.calendarOptions.events = this.calendarEvents;
-        this.myCalendarEventForInstruction = this.calendarEvents;
+        this.getOthersReservations();
       })
   }
 
+  showAppointmentsForInstruction(){
+    this.service.showAppointmentsForInstruction(this.username).subscribe(
+      data => {
+        this.myCalendarEventForInstruction = data;
+      },
+      error => {
+      }
+    );
+  }
+
   getOthersReservations(){
-    this.service.getBusinessHours(this.username).subscribe(
+    this.service.getOthersAppointments(this.username).subscribe(
        data => {
 
          data.forEach(element => {
@@ -177,7 +193,7 @@ export class AppointmentComponent {
          })
 
 
-        if(this.wantToWorkOnHolidays == false)
+        if(this.wantToWorkOnHolidays == true)
          HOLIDAYS.forEach(element => {
           this.calendarEvents = this.calendarEvents.concat({
             id: createEventId()+1111,
@@ -199,12 +215,7 @@ export class AppointmentComponent {
 
   handleDateSelect(selectInfo: DateSelectArg) {
     const calendarApi = selectInfo.view.calendar;
-    calendarApi.unselect(); // clear date selection
-
-   /* if(calendarApi.getDate() == TODAY_STR){
-      alert("Ide nem foglalhatsz, ez ünnepnap!");
-      return false;
-    }*/
+    calendarApi.unselect();
 
     if(confirm("Biztosan foglalsz?")){
     const title = prompt('Ha szeretnéd, írd le a problémádat pár szóban');
@@ -246,7 +257,7 @@ export class AppointmentComponent {
     if (confirm(`Biztosan törölöd a foglalásod? '${clickInfo.event.start}'`)) {
       this.service.deleteAppointment(clickInfo.event.id).subscribe(
         data => {
-          this.toastr.success('Sikeres törölted az időpontot!', 'OK', {
+          this.toastr.success('Sikeresen törölted az időpontot!', 'OK', {
             timeOut: 3000,  positionClass: 'toast-top-center',
           });
         },

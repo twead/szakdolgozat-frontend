@@ -1,3 +1,4 @@
+import { Appointment } from "./appointment";
 import { User } from "./user";
 import { Worktime } from "./worktime";
 
@@ -8,7 +9,8 @@ export class Practitioner {
       public workingAddress: string = null,
       public worksOnHolidays: boolean = null,
       public user: User = null,
-      public worktime: Worktime = null
+      public worktimes: Array<Worktime> = null,
+      public appointments: Array<Appointment> = null
     ){}
 
 }

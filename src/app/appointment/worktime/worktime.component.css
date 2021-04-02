@@ -1,10 +1,7 @@
 mat-card{
  padding: 0;
- margin: auto;
-}
-
-.example-card{
-  margin-top: 20px;
+ margin: 20px auto;
+ width: 60%;
 }
 
 .start-end-time{
@@ -24,7 +21,9 @@ h3{
 }
 
 h2{
+  margin-top: 20px;
   text-align: center;
+  font-size: 25px!important;
 }
 
 h5{
@@ -33,6 +32,7 @@ h5{
 
 .title-input{
   display: block;
+  margin: auto;
 }
 
 mat-card-actions{
@@ -49,4 +49,34 @@ form{
 input{
   text-align: center;
   font-size: 20px;
+}
+
+
+mat-slide-toggle{
+  font-size: 20px;
+  margin: auto;
+
+}
+
+.slider{
+  text-align: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 767px) {
+  mat-card{
+    padding: 0;
+    margin: auto;
+    width: 100%;
+   }
+}
+
+/*Ipad-es nézet*/
+@media only screen and (width: 768px) {
+  mat-card{
+    padding: 0;
+    margin: auto;
+    width: 80%;
+   }
 }

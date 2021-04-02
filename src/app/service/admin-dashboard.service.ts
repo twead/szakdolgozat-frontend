@@ -25,8 +25,12 @@ export class AdminDashboardService {
     return this.httpClient.put<User>(this.dashboardURL+'patients/update/' + id, practitioner);
   }
 
-  public updateToPractitioner(id: number){
-    return this.httpClient.get(this.dashboardURL+'patients/update-to-practitioner/' + id);
+  public upgradeToPractitioner(id: number){
+    return this.httpClient.get(this.dashboardURL+'patients/upgrade-to-practitioner/' + id);
+  }
+
+  public downgradeToPatient(id: number){
+    return this.httpClient.get(this.dashboardURL+'practitioner/downgrade-to-patient/' + id);
   }
 
   public deletePatient(id: number){

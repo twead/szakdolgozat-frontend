@@ -1,8 +1,9 @@
 export class Worktime {
   constructor(
+    public id: number = null,
     public day: number = null,
-    public startTime: string = null,
-    public endTime: string = null,
+    public fromTime: string = null,
+    public toTime: string = null,
   ){}
 
 }

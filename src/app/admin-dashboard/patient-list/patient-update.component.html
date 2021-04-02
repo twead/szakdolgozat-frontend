@@ -1,34 +1,143 @@
 <app-main-nav></app-main-nav>
-<div class="container">
-  <h3>Páciens módosítása</h3>
-  <div style="width: 400px;">
-    <form (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="name">Név</label>
-        <input type="text" class="form-control" id="name" required [(ngModel)]="name" name="name">
-      </div>
 
-      <div class="form-group">
-        <label for="name">Felhasználónév</label>
-        <input type="text" class="form-control" id="username" required [(ngModel)]="username" name="username">
-      </div>
+  <div class="container d-flex justify-content-center">
 
-      <div class="form-group">
-        <label for="name">Email</label>
-        <input type="text" class="form-control" id="email" required [(ngModel)]="email" name="email">
-      </div>
+    <mat-card class="example-card">
+      <mat-card-header>
+        <h4><b>Páciens módosítása</b></h4>
+      </mat-card-header>
+      <mat-card-content>
+        <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
 
-      <div class="form-group">
-        <label for="name">Lakcím</label>
-        <input type="text" class="form-control" id="address" required [(ngModel)]="address" name="address">
-      </div>
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Teljes név</mat-label>
+            <input
+              [(ngModel)]="name"
+              name="name"
+              id="name"
+              matInput
+              maxlength="40"
+              #nameError="ngModel"
+              required
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="nameError.invalid && nameError.touched"
+            >
+              <div *ngIf="nameError.errors.required">
+                Név megadása kötelező!
+              </div>
+              <div *ngIf="nameError.errors.maxlength">
+                Maximum 40 karakter hosszú lehet.
+              </div>
+            </div>
+            <mat-hint align="start">Név megadása kötelező</mat-hint>
+          </mat-form-field>
 
-      <div class="form-group">
-        <label for="name">Születési dátum</label>
-        <input type="text" class="form-control" id="dateOfBorn" required [(ngModel)]="dateOfBorn" name="dateOfBorn">
-      </div>
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input
+              [(ngModel)]="email"
+              name="email"
+              id="email"
+              matInput
+              #emailError="ngModel"
+              maxlength="40"
+              pattern="[a-z0-9_.+-]+@[a-z0-9-]+\.[a-z0-9-]+"
+              required
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="emailError.invalid && emailError.touched"
+            >
+              <div *ngIf="emailError.errors.required">
+                Email megadása kötelező!
+              </div>
+              <div *ngIf="emailError.errors.pattern">
+                Meg kell felelnie a mintának.
+              </div>
+              <div *ngIf="emailError.errors.maxlength">
+                Maximum 40 karakter hosszú lehet.
+              </div>
+            </div>
+            <mat-hint align="start">Email cím megadása kötelező</mat-hint>
+          </mat-form-field>
 
-      <button type="submit" class="btn btn-success">Módosít</button>
-    </form>
+          <mat-form-field>
+            <label for="dateOfBorn">Születési dátum:</label>
+            <input
+              name="dateOfBorn"
+              id="dateOfBorn"
+              matInput
+              [matDatepicker]="myDatePicker"
+              [(ngModel)]="dateOfBorn"
+              [min]="minDate"
+              [max]="maxDate"
+              required
+            />
+            <mat-datepicker-toggle
+              [for]="myDatePicker"
+              matSuffix
+            ></mat-datepicker-toggle>
+            <mat-datepicker #myDatePicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Lakcím</mat-label>
+            <input
+              [(ngModel)]="address"
+              name="address"
+              id="address"
+              matInput
+              maxlength="60"
+              #addressError="ngModel"
+              required
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="addressError.invalid && addressError.touched"
+            >
+              <div *ngIf="addressError.errors.required">
+                Lakcím megadása kötelező!
+              </div>
+              <div *ngIf="addressError.errors.maxlength">
+                Maximum 40 karakter hosszú lehet.
+              </div>
+            </div>
+            <mat-hint align="start">Lakcím megadása kötelező</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Telefonszám</mat-label>
+            <input
+              [(ngModel)]="phoneNumber"
+              name="phoneNumber"
+              id="phoneNumber"
+              matInput
+              maxlength="20"
+              #phoneNumberError="ngModel"
+              required
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="phoneNumberError.invalid && phoneNumberError.touched"
+            >
+              <div *ngIf="phoneNumberError.errors.required">
+                Telefonszám megadása kötelező!
+              </div>
+              <div *ngIf="phoneNumberError.errors.maxlength">
+                Maximum 40 karakter hosszú lehet.
+              </div>
+            </div>
+            <mat-hint align="start">Telefonszám megadása kötelező</mat-hint>
+          </mat-form-field>
+
+          <mat-card-actions>
+            <button color="primary" mat-raised-button [disabled]="!f.valid">
+              <i class="far fa-save"></i> Módosítás
+            </button>
+          </mat-card-actions>
+        </form>
+      </mat-card-content>
+    </mat-card>
   </div>
-</div>

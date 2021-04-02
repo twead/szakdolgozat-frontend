@@ -155,8 +155,52 @@
 
           <mat-form-field color="accent" appearance="fill">
             <mat-label>Lakcím</mat-label>
-            <input name="address" id="address" matInput [(ngModel)]="address" required/>
+            <input
+              [(ngModel)]="address"
+              name="address"
+              id="address"
+              matInput
+              maxlength="60"
+              #addressError="ngModel"
+              required
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="addressError.invalid && addressError.touched"
+            >
+              <div *ngIf="addressError.errors.required">
+                Lakcím megadása kötelező!
+              </div>
+              <div *ngIf="addressError.errors.maxlength">
+                Maximum 40 karakter hosszú lehet.
+              </div>
+            </div>
             <mat-hint align="start">Lakcím megadása kötelező</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Telefonszám</mat-label>
+            <input
+              [(ngModel)]="phoneNumber"
+              name="phoneNumber"
+              id="phoneNumber"
+              matInput
+              maxlength="20"
+              #phoneNumberError="ngModel"
+              required
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="phoneNumberError.invalid && phoneNumberError.touched"
+            >
+              <div *ngIf="phoneNumberError.errors.required">
+                Telefonszám megadása kötelező!
+              </div>
+              <div *ngIf="phoneNumberError.errors.maxlength">
+                Maximum 40 karakter hosszú lehet.
+              </div>
+            </div>
+            <mat-hint align="start">Telefonszám megadása kötelező</mat-hint>
           </mat-form-field>
 
           <mat-card-actions>

@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -46,7 +47,7 @@ import { interceptorProvider } from './interceptor/user-interceptor.service';
 import { PasswordUpdateComponent } from './profile/password-update.component';
 import { ProfileUpdateComponent } from './profile/profile-update.component';
 import { ProfileComponent } from './profile/profile.component';
-
+import { ClientListComponent } from './client-list/client-list.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -73,7 +74,8 @@ FullCalendarModule.registerPlugins([
     PatientUpdateComponent,
     AppointmentComponent,
     UpdatePractitionerComponent,
-    WorktimeComponent
+    WorktimeComponent,
+    ClientListComponent
   ],
   imports: [
     BrowserModule,
@@ -93,6 +95,7 @@ FullCalendarModule.registerPlugins([
     MatIconModule,
     MatListModule,
     MatSelectModule,
+    MatSlideToggleModule,
     LayoutModule,
     MatSidenavModule,
     MatTableModule,

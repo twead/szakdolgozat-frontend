@@ -18,6 +18,7 @@ import { GeneralPractitionerListComponent } from './admin-dashboard/practitioner
 import { GeneralPractitionerUpdateComponent } from './admin-dashboard/practitioner-list/general-practitioner-update.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { UpdatePractitionerComponent } from './appointment/update-practitioner.component';
+import { ClientListComponent } from './client-list/client-list.component';
 
 
 
@@ -30,6 +31,7 @@ const routes: Routes = [
   {path: 'profile/password-update', component: PasswordUpdateComponent, canActivate: [ProdGuardService], data: {expectedRole: ['user','practitioner','admin']}},
   {path: 'appointment/reservation', component: SelectPractitionerComponent, canActivate: [ProdGuardService], data: {expectedRole: ['user','practitioner','admin']}},
   {path: 'practitioners', component: GeneralPractitionerListComponent, canActivate: [ProdGuardService], data: {expectedRole: ['practitioner','admin']}},
+  {path: 'practitioner-dashboard', component: ClientListComponent, canActivate: [ProdGuardService], data: {expectedRole: ['practitioner','admin']}},
   {path: 'practitioners/details/:id', component: GeneralPractitionerDetailsComponent, canActivate: [ProdGuardService], data: {expectedRole: ['practitioner','admin']}},
   {path: 'practitioners/update/:id', component: GeneralPractitionerUpdateComponent, canActivate: [ProdGuardService], data: {expectedRole: ['practitioner','admin']}},
   {path: 'patients', component: PatientListComponent, canActivate: [ProdGuardService], data: {expectedRole: ['practitioner','admin']}},

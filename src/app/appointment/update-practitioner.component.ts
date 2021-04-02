@@ -66,7 +66,7 @@ export class UpdatePractitionerComponent implements OnInit {
       });
     }
   );
-  this.toastr.success('Háziorvosod kiválasztottad!', 'OK', {
+  this.toastr.success('Kiválasztottál egy orvost!', 'OK', {
     timeOut: 3000,  positionClass: 'toast-top-center',
   });
   }

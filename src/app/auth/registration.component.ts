@@ -19,6 +19,7 @@ export class RegistrationComponent implements OnInit {
   password: string;
   address: string;
   dateOfBorn: Date;
+  phoneNumber: string;
 
   errorMessage: string;
 
@@ -38,7 +39,7 @@ export class RegistrationComponent implements OnInit {
 
   onRegister(): void{
     this.newUser = new NewUser(this.name, this.username, this.email, this.password,
-      this.address, this.dateOfBorn);
+      this.address, this.dateOfBorn, this.phoneNumber);
     this.authService.addUser(this.newUser).subscribe(
       data => {
         this.toastr.success('Sikeres regisztráció!', 'OK', {

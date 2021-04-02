@@ -20,7 +20,7 @@ export class GeneralPractitionerDetailsComponent implements OnInit {
     private adminService: AdminDashboardService, private toastr: ToastrService) { }
 
   ngOnInit() {
-     this.id = this.route.snapshot.params['id'];
+    this.id = this.route.snapshot.params['id'];
 
     this.adminService.getPatientById(this.id)
       .subscribe(

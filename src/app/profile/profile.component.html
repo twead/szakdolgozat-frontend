@@ -20,6 +20,9 @@
       <div>
         <label><b>Lakcím: </b></label> {{profileData?.patient?.address}}
       </div>
+      <div>
+        <label><b>Telefonszám: </b></label> {{profileData?.patient?.phoneNumber}}
+      </div>
       <button (click)="updateProfile()" class="btn btn-info" style="margin-right: 10px">Módosítás</button>
       <button (click)="updatePassword()" class="btn btn-info" style="margin-right: 10px">Jelszó megváltoztatása</button>
     </mat-card-content>
