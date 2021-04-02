@@ -1,0 +1,39 @@
+
+<app-main-nav></app-main-nav>
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h2>Kliens lista</h2>
+    </div>
+    <div class="panel-body">
+      <input class="form-control" type="text" name="name" [(ngModel)]="name" (ngModelChange)="search()" placeholder="Írd be a páciens nevét">
+      <table class="table table-striped table-responsive-md">
+        <thead>
+          <tr>
+            <th>Név</th>
+            <th>Időpont</th>
+            <th>Megjegyzés</th>
+            <th>Műveletek</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let client of clients | paginate: { id: 'listing_pagination',
+          itemsPerPage: 10,
+          currentPage: page,
+          totalItems: totalRecords }">
+            <td>{{client.clientName}}</td>
+            <td>{{client.time | date: 'yyyy.MM.dd hh:mm'}}</td>
+            <td>{{client.message}}</td>
+            <td><button (click)="deleteAppointment(client.appointmentId)" class="btn btn-success"><i class="fas fa-check"></i></button></td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <pagination-controls  id="listing_pagination" maxSize="5"
+        directionLinks="true"
+        (pageChange)="page = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+

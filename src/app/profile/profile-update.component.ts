@@ -20,6 +20,7 @@ export class ProfileUpdateComponent implements OnInit {
   email: string;
   address: string;
   dateOfBorn: Date;
+  phoneNumber: string;
 
   minDate = new Date(1900,1,1);
   maxDate = new Date();
@@ -38,6 +39,7 @@ export class ProfileUpdateComponent implements OnInit {
       this.email = this.updateProfile.patient.email;
       this.address = this.updateProfile.patient.address;
       this.dateOfBorn = this.updateProfile.patient.dateOfBorn;
+      this.phoneNumber = this.updateProfile.patient.phoneNumber;
     }, error => console.log(error));
 
   }
@@ -47,9 +49,13 @@ export class ProfileUpdateComponent implements OnInit {
     this.updateProfile.patient.email = this.email;
     this.updateProfile.patient.address = this.address;
     this.updateProfile.patient.dateOfBorn = this.dateOfBorn;
+    this.updateProfile.patient.phoneNumber = this.phoneNumber;
 
     this.patientService.updateProfile(this.username, this.updateProfile)
       .subscribe(data => {
+        this.toastr.success('Profilodat módosítottad!', 'OK', {
+          timeOut: 3000,  positionClass: 'toast-top-center',
+        });
         this.gotoList();
       }, err => {
         this.errorMessage = err.error.message;

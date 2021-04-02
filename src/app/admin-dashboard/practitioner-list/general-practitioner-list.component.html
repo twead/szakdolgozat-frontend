@@ -2,7 +2,7 @@
 <div class="container">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h2>Háziorvos lista</h2>
+      <h2>Praktícionáló lista</h2>
     </div>
     <div class="panel-body">
       <input class="form-control" type="text" name="name" [(ngModel)]="name" (ngModelChange)="search()" placeholder="Írd be az orvos nevét">
@@ -25,6 +25,7 @@
             <td>{{practitioner.patient.email}}</td>
             <td><button (click)="getPractitionerDetails(practitioner.id)" class="btn btn-info" style="margin-right: 10px">Részletek</button>
             <button (click)="updatePractitioner(practitioner.id)" class="btn btn-info" style="margin-right: 10px">Módosítás</button>
+            <button (click)="downgradeToPatient(practitioner.id)" class="btn btn-info" style="margin-right: 10px">Nem orvos</button>
             <button (click)="deletePractitioner(practitioner.id)" class="btn btn-danger">Törlés</button></td>
           </tr>
         </tbody>

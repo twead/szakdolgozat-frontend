@@ -62,7 +62,7 @@ export class PatientListComponent implements OnInit {
   }
 
   updateToPractitioner(id: number){
-    this.adminService.updateToPractitioner(id).subscribe(
+    this.adminService.upgradeToPractitioner(id).subscribe(
       response => {
         this.toastr.success("Orvos rang kiosztva", 'OK', {
           timeOut: 3000, positionClass: 'toast-top-center'

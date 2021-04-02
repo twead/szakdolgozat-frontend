@@ -19,6 +19,10 @@ export class PatientUpdateComponent implements OnInit {
   email : string;
   address: string;
   dateOfBorn: Date;
+  phoneNumber: string;
+
+  minDate = new Date(1900,1,1);
+  maxDate = new Date();
 
   errorMessage: string;
 
@@ -38,6 +42,7 @@ export class PatientUpdateComponent implements OnInit {
           this.email = this.patient.patient.email;
           this.address = this.patient.patient.address;
           this.dateOfBorn = this.patient.patient.dateOfBorn;
+          this.phoneNumber = this.patient.patient.phoneNumber;
       }, error => {
 
       });
@@ -49,6 +54,7 @@ export class PatientUpdateComponent implements OnInit {
     this.patient.patient.email = this.email;
     this.patient.patient.address = this.address;
     this.patient.patient.dateOfBorn = this.dateOfBorn;
+    this.patient.patient.phoneNumber = this.phoneNumber;
 
     this.adminService.updatePatient(this.id, this.patient)
       .subscribe(data => {

@@ -50,6 +50,23 @@ export class GeneralPractitionerListComponent implements OnInit {
     );
   }
 
+  downgradeToPatient(id: number){
+    this.adminService.downgradeToPatient(id).subscribe(
+      data => {
+        this.toastr.success('Ez a felhasználó mostantól nem orvos!', 'OK', {
+          timeOut: 3000,  positionClass: 'toast-top-center',
+        });
+        window.location.reload();
+      },
+      error => {
+        this.errorMessage = error.error.message;
+          this.toastr.error(this.errorMessage, 'Hiba!', {
+            timeOut: 3000,  positionClass: 'toast-top-center',
+          });
+      }
+    )
+  }
+
   getPractitionerDetails(id: number){
     this.router.navigate(['practitioners/details', id]);
   }
