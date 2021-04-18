@@ -49,6 +49,8 @@ export class WorktimeComponent implements OnInit {
       .subscribe(
         data => {
           this.profileData = data;
+          this.getBusinessHours();
+          this.getWorksOnHolidays();
         },
         err => {
           this.toastr.error('Nem létezik a felhasználó', 'Hiba!', {
@@ -56,6 +58,39 @@ export class WorktimeComponent implements OnInit {
           });
         }
       );
+  }
+
+  getBusinessHours(){
+    this.appointmentService.getBusinessHours(this.username)
+    .subscribe(
+      data => {
+          this.mondayStart = data[0].fromTime;
+          this.mondayEnd = data[0].toTime;
+          this.tuesdayStart = data[1].fromTime;
+          this.tuesdayEnd = data[1].toTime;
+          this.wednesdayStart = data[2].fromTime;
+          this.wednesdayEnd = data[2].toTime;
+          this.thursdayStart = data[3].fromTime;
+          this.thursdayEnd = data[3].toTime;
+          this.fridayStart = data[4].fromTime;
+          this.fridayEnd = data[4].toTime;
+      },
+      error => {
+
+      }
+    );
+  }
+
+  getWorksOnHolidays(){
+    this.appointmentService.getHolidayWorksForWorktimeSettings(this.username)
+    .subscribe(
+      data => {
+        this.worksOnHoliday = data.worksOnHoliday;
+      },
+      error => {
+
+      }
+    );
   }
 
   onSubmit() {

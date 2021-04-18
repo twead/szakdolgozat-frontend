@@ -28,3 +28,7 @@ mat-card-actions{
 button{
   font-size: 17px;
 }
+
+#forgot-password{
+  float: right;
+}

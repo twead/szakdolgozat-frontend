@@ -38,7 +38,6 @@ export class GeneralPractitionerUpdateComponent implements OnInit {
 
     this.adminService.getPatientById(this.id)
       .subscribe(data => {
-        console.log(data)
         this.practitioner = data;
         this.name = this.practitioner.patient.name;
         this.username = this.practitioner.username;

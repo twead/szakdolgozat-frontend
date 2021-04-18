@@ -19,13 +19,16 @@ import { GeneralPractitionerUpdateComponent } from './admin-dashboard/practition
 import { AppointmentComponent } from './appointment/appointment.component';
 import { UpdatePractitionerComponent } from './appointment/update-practitioner.component';
 import { ClientListComponent } from './client-list/client-list.component';
-
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 const routes: Routes = [
   {path: '', component: IndexComponent},
   {path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
   {path: 'registration', component: RegistrationComponent, canActivate: [LoginGuard]},
+  {path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [LoginGuard]},
+  {path: 'reset-password/:code', component: ResetPasswordComponent, canActivate: [LoginGuard]},
   {path: 'profile', component: ProfileComponent, canActivate: [ProdGuardService], data: {expectedRole: ['user','practitioner','admin']}},
   {path: 'profile/update', component: ProfileUpdateComponent, canActivate: [ProdGuardService], data: {expectedRole: ['user','practitioner','admin']}},
   {path: 'profile/password-update', component: PasswordUpdateComponent, canActivate: [ProdGuardService], data: {expectedRole: ['user','practitioner','admin']}},

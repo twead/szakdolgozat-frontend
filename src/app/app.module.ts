@@ -5,7 +5,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -48,6 +48,8 @@ import { PasswordUpdateComponent } from './profile/password-update.component';
 import { ProfileUpdateComponent } from './profile/profile-update.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ClientListComponent } from './client-list/client-list.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -75,7 +77,9 @@ FullCalendarModule.registerPlugins([
     AppointmentComponent,
     UpdatePractitionerComponent,
     WorktimeComponent,
-    ClientListComponent
+    ClientListComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -104,7 +108,8 @@ FullCalendarModule.registerPlugins([
   ],
   providers: [
     interceptorProvider,
-    {provide: LocationStrategy, useClass: HashLocationStrategy}
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    {provide: MAT_DATE_LOCALE, useValue: 'hu'}
   ],
   bootstrap: [AppComponent]
 })

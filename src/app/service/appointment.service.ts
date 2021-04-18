@@ -50,11 +50,19 @@ export class AppointmentService {
   }
 
   public getBusinessHours(username: string){
+    return this.httpClient.get<Array<Worktime>>(this.appointmentURL+'get-business-hours/' + username);
+  }
+
+  public myPractitionerWorkingTime(username: string){
     return this.httpClient.get<Array<Worktime>>(this.appointmentURL+'my-practitioner-working-time/' + username);
   }
 
   public setWorksOnHolidays(username: string, worksOnHoliday: HolidaysDto){
     return this.httpClient.post(this.appointmentURL+'works-on-holidays/' + username, worksOnHoliday);
+  }
+
+  public getHolidayWorksForWorktimeSettings(username: string){
+    return this.httpClient.get<HolidaysDto>(this.appointmentURL+'works-on-holidays/'+ username);
   }
 
   public getWorksOnHolidays(username: string){

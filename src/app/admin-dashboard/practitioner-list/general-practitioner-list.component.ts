@@ -24,28 +24,12 @@ export class GeneralPractitionerListComponent implements OnInit {
     this.getPractitioners();
   }
 
-  deletePractitioner(id: number) {
-    this.adminService.deletePatient(id)
-      .subscribe(
-        data => {
-          this.getPractitioners();
-        },
-        err => {
-          this.errorMessage = err.error.message;
-          this.toastr.error(this.errorMessage, 'Hiba!', {
-            timeOut: 3000,  positionClass: 'toast-top-center',
-          });
-        }
-      );
-  }
-
   getPractitioners() {
     this.adminService.getAllPractitioner().subscribe(
       response => {
         this.practitioners = response;
       },
       error => {
-        // TODO: Error message
       }
     );
   }

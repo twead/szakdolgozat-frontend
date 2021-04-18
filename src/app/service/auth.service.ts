@@ -2,9 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ForgotPasswordDto } from '../dto/forgot-password-dto';
 import { JwtDto } from '../dto/jwt-dto';
 import { LoginUser } from '../dto/login-user';
 import { NewUser } from '../dto/new-user';
+import { UpdatePasswordDto } from '../dto/update-password-dto';
+import { User } from '../model/user';
 
 @Injectable({
   providedIn: 'root'
@@ -27,4 +30,17 @@ export class AuthService {
     return this.httpClient.post<JwtDto>(this.authURL+'refresh',dto);
   }
 
+  public forgotPassword(email: ForgotPasswordDto){
+    return this.httpClient.post<User>(this.authURL+'forgot-password',email);
+  }
+
+  public resetPassword(code: string): Observable<User>{
+    return this.httpClient.get<User>(this.authURL+'reset-password/'+code);
+  }
+
+  public updatePassword(code: string, password: UpdatePasswordDto){
+    return this.httpClient.post<User>(this.authURL+'update-password/'+code, password);
+  }
 }
+
+

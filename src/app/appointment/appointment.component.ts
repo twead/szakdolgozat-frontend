@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/angular';
-import { BusinessHoursInput, EventInput } from '@fullcalendar/core'
+import { EventInput } from '@fullcalendar/core'
 import huLocale from '@fullcalendar/core/locales/hu';
 import { ToastrService } from 'ngx-toastr';
 import { InstructionDto } from '../dto/instruction-dto';
@@ -21,23 +21,12 @@ export class AppointmentComponent {
 
   username: string = this.tokenService.getUserName();
   profileData: User;
-  toSave: Appointment;
   errorMessage: string;
   dayNumber: number = null;
-
-  bh: BusinessHoursInput = [{
-    start: '18:00',
-    end: '20:00',
-    dayOfWeek:[1]
-  }];
-  arNum: Array<number>;
-
   calendarEvents: EventInput[] = [];
   customBusinessHours: EventInput[] = [];
   myCalendarEventForInstruction?: InstructionDto[] = [];
-
   wantToWorkOnHolidays: boolean;
-
 
   constructor(private service : AppointmentService, private toastr: ToastrService,
     private tokenService: TokenService, private patientService: PatientService){ }
@@ -46,9 +35,7 @@ export class AppointmentComponent {
     var day = new Date();
     this.dayNumber = day.getDay();
     this.calendarOptions.firstDay = this.dayNumber;
-
     this.getProfile();
-
   }
 
   calendarVisible = true;
