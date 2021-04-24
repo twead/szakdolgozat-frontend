@@ -23,7 +23,7 @@
             <td>{{practitioner.patient.name}}</td>
             <td>{{practitioner.username}}</td>
             <td>{{practitioner.patient.email}}</td>
-            <td><button (click)="getPractitionerDetails(practitioner.id)" class="btn btn-info" style="margin-right: 10px">Részletek</button>
+            <td style="display: flex;"><button (click)="getPractitionerDetails(practitioner.id)" class="btn btn-info" style="margin-right: 10px">Részletek</button>
             <button (click)="updatePractitioner(practitioner.id)" class="btn btn-info" style="margin-right: 10px">Módosítás</button>
             <button (click)="downgradeToPatient(practitioner.id)" class="btn btn-info" style="margin-right: 10px">Nem orvos</button>
           </tr>

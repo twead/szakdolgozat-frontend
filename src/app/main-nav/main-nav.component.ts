@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class MainNavComponent {
 
   isLogged = false;
+  isPatient = false;
   isPractitioner = false;
   isAdmin = false;
 
@@ -28,6 +29,7 @@ export class MainNavComponent {
     this.isLogged = this.tokenService.isLogged();
     this.isAdmin = this.tokenService.IsAdmin();
     this.isPractitioner = this.tokenService.IsPractitioner();
+    this.isPatient = this.tokenService.IsPatient();
   }
 
   onLogout(): void {

@@ -14,6 +14,7 @@ export class ProfileUpdateComponent implements OnInit {
 
   username: string;
   updateProfile: User;
+  isPractitioner = false;
   errorMessage: string;
 
   name: string;
@@ -21,6 +22,8 @@ export class ProfileUpdateComponent implements OnInit {
   address: string;
   dateOfBorn: Date;
   phoneNumber: string;
+  workingAddress: string;
+  specialization: string;
 
   minDate = new Date(1900,1,1);
   maxDate = new Date();
@@ -31,6 +34,7 @@ export class ProfileUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.updateProfile = new User();
     this.username = this.tokenService.getUserName();
+    this.isPractitioner = this.tokenService.IsPractitioner();
 
     this.patientService.getProfileDetails(this.username)
     .subscribe(data => {
@@ -40,6 +44,10 @@ export class ProfileUpdateComponent implements OnInit {
       this.address = this.updateProfile.patient.address;
       this.dateOfBorn = this.updateProfile.patient.dateOfBorn;
       this.phoneNumber = this.updateProfile.patient.phoneNumber;
+      if(this.isPractitioner == true){
+        this.workingAddress = this.updateProfile.practitioner.workingAddress;
+        this.specialization = this.updateProfile.practitioner.specialization;
+      }
     }, error => console.log(error));
 
   }
@@ -50,6 +58,10 @@ export class ProfileUpdateComponent implements OnInit {
     this.updateProfile.patient.address = this.address;
     this.updateProfile.patient.dateOfBorn = this.dateOfBorn;
     this.updateProfile.patient.phoneNumber = this.phoneNumber;
+    if(this.isPractitioner == true){
+      this.updateProfile.practitioner.workingAddress = this.workingAddress;
+      this.updateProfile.practitioner.specialization = this.specialization;
+    }
 
     this.patientService.updateProfile(this.username, this.updateProfile)
       .subscribe(data => {

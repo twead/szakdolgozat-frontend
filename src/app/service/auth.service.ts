@@ -41,6 +41,11 @@ export class AuthService {
   public updatePassword(code: string, password: UpdatePasswordDto){
     return this.httpClient.post<User>(this.authURL+'update-password/'+code, password);
   }
+
+  public activation(code: string){
+    return this.httpClient.get(this.authURL+'activation/'+code);
+  }
+
 }
 
 

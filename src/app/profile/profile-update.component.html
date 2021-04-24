@@ -132,6 +132,31 @@
             <mat-hint align="start">Telefonszám megadása kötelező</mat-hint>
           </mat-form-field>
 
+          <mat-form-field color="accent" appearance="fill" *ngIf="isPractitioner">
+            <mat-label>Munkahelyi cím</mat-label>
+            <input
+              [(ngModel)]="workingAddress"
+              name="workingAddress"
+              id="workingAddress"
+              matInput
+              maxlength="60"
+              required
+            />
+            <mat-hint align="start">Akkor is add meg, ha megegyezik a lakcímmel!</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field color="accent" appearance="fill" *ngIf="isPractitioner">
+            <mat-label>Szakterület</mat-label>
+            <input
+              [(ngModel)]="specialization"
+              name="specialization"
+              id="specialization"
+              matInput
+              maxlength="60"
+              required
+            />
+          </mat-form-field>
+
           <mat-card-actions>
             <button color="primary" mat-raised-button [disabled]="!f.valid">
               <i class="far fa-save"></i> Módosítás

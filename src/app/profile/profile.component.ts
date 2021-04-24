@@ -14,12 +14,14 @@ export class ProfileComponent implements OnInit {
 
   username: string = this.tokenService.getUserName();
   profileData: User;
+  isPractitioner = false;
 
   constructor(private router: Router, private patietService: PatientService,
               private tokenService: TokenService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.getProfile();
+    this.isPractitioner = this.tokenService.IsPractitioner();
     }
 
     getProfile(){

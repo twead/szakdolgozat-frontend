@@ -16,14 +16,14 @@
       Menü
     </mat-toolbar>
     <mat-nav-list>
-      <a mat-button *ngIf="isPractitioner" routerLink="/profile" class="sidelistelements"><i class="fas fa-user-circle"></i> Adatlap </a>
-      <a mat-button routerLink="/" class="sidelistelements"><i class="fas fa-home"></i> Kezdőlap </a>
-      <a mat-button *ngIf="isPractitioner" routerLink="/practitioners" class="sidelistelements"><i class="fas fa-sign-in-alt"></i> Orvosok </a>
-      <a mat-button *ngIf="isPractitioner" routerLink="/patients" class="sidelistelements"><i class="fas fa-sign-in-alt"></i> Páciensek </a>
-      <a mat-button *ngIf="isPractitioner" routerLink="/practitioner-dashboard" class="sidelistelements"><i class="fas fa-sign-in-alt"></i> Kliensek </a>
-      <a mat-button *ngIf="isPractitioner" routerLink="/appointment/update-practitioner" class="sidelistelements"><i class="fas fa-user-circle"></i> Orvos kiválasztása </a>
-      <a mat-button *ngIf="isPractitioner" routerLink="/appointment/worktimes" class="sidelistelements"><i class="fas fa-user-circle"></i> Munkaidő módosítása </a>
-      <a mat-button *ngIf="isPractitioner" routerLink="/appointment/reservation" class="sidelistelements"><i class="fas fa-user-circle"></i> Időpontfoglalás </a>
+      <a mat-button *ngIf="!isLogged" routerLink="/frequently-asked-questions" class="sidelistelements"><i class="fas fa-question"></i> Gyakori kérdések </a>
+      <a mat-button *ngIf="isPatient" routerLink="/profile" class="sidelistelements"><i class="fas fa-user-circle"></i> Adatlap </a>
+      <a mat-button *ngIf="isPractitioner" routerLink="/practitioner-dashboard" class="sidelistelements"><i class="fas fa-notes-medical"></i> Kliensek </a>
+      <a mat-button *ngIf="isPractitioner" routerLink="/appointment/worktimes" class="sidelistelements"><i class="fas fa-business-time"></i> Munkaidő módosítása </a>
+      <a mat-button *ngIf="isPatient" routerLink="/appointment/update-practitioner" class="sidelistelements"><i class="fas fa-user-md"></i> Orvos kiválasztása </a>
+      <a mat-button *ngIf="isPatient" routerLink="/appointment/reservation" class="sidelistelements"><i class="far fa-calendar-check"></i> Időpontfoglalás </a>
+      <a mat-button *ngIf="isAdmin" routerLink="/practitioners" class="sidelistelements"><i class="far fa-address-book"></i> Orvosok </a>
+      <a mat-button *ngIf="isAdmin" routerLink="/patients" class="sidelistelements"><i class="fas fa-address-book"></i> Páciensek </a>
       <a mat-raised-button color="primary" *ngIf="!isLogged" routerLink="/login" class="sidelistelements"><i class="fas fa-sign-in-alt"></i> Bejelentkezés </a>
       <a mat-raised-button color="warn" *ngIf="isLogged" (click)="onLogout()" style="cursor: pointer;" class="sidelistelements"><i class="fas fa-door-open"></i> Kijelentkezés </a>
     </mat-nav-list>

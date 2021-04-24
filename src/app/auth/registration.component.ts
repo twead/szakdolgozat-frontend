@@ -26,9 +26,7 @@ export class RegistrationComponent implements OnInit {
   minDate = new Date(1900,1,1);
   maxDate = new Date();
 
-
   constructor(
-    private tokenService: TokenService,
     private authService: AuthService,
     private router: Router,
     private toastr: ToastrService

@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+  production: true,
   authURL: "http://localhost:8080/auth/",
   patientURL: "http://localhost:8080/api/profile/",
   dashboardURL: "http://localhost:8080/api/dashboard/",

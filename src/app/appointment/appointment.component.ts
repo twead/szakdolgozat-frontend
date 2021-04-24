@@ -121,7 +121,7 @@ export class AppointmentComponent {
   }
 
   getYourDoctorBusinessHours(){
-    this.service.getBusinessHours(this.username).subscribe(
+    this.service.myPractitionerWorkingTime(this.username).subscribe(
       data => {
         data.forEach(element => {
           this.customBusinessHours = this.customBusinessHours.concat({

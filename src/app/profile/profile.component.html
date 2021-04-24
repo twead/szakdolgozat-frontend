@@ -23,6 +23,12 @@
       <div>
         <label><b>Telefonszám: </b></label> {{profileData?.patient?.phoneNumber}}
       </div>
+      <div *ngIf="isPractitioner">
+        <label><b>Munkahelyi cím: </b></label> {{profileData?.practitioner?.workingAddress}}
+      </div>
+      <div *ngIf="isPractitioner">
+        <label><b>Szakterület: </b></label> {{profileData?.practitioner?.specialization}}
+      </div>
       <button (click)="updateProfile()" class="btn btn-info" style="margin-right: 10px">Módosítás</button>
       <button (click)="updatePassword()" class="btn btn-info" style="margin-right: 10px">Jelszó megváltoztatása</button>
     </mat-card-content>

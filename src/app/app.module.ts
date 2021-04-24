@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -50,6 +51,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { ClientListComponent } from './client-list/client-list.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ActivationComponent } from './activation/activation.component';
+import { CommonQuestionsComponent } from './common-questions/common-questions.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -79,7 +82,9 @@ FullCalendarModule.registerPlugins([
     WorktimeComponent,
     ClientListComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ActivationComponent,
+    CommonQuestionsComponent
   ],
   imports: [
     BrowserModule,
@@ -104,7 +109,8 @@ FullCalendarModule.registerPlugins([
     MatSidenavModule,
     MatTableModule,
     NgxPaginationModule,
-    FullCalendarModule
+    FullCalendarModule,
+    MatExpansionModule
   ],
   providers: [
     interceptorProvider,

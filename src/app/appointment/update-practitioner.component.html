@@ -1,13 +1,29 @@
 <app-main-nav></app-main-nav>
 <div class="container">
+  <div fxLayout="row" fxLayoutAlign="space-around stretch" style="margin: auto;" >
 <mat-card class="practitioner-card col-lg-3" *ngFor="let practitioner of practitioners">
   <mat-card-header>
     <mat-card-title id="practitioner-name"><b>{{practitioner.patient.name}}</b></mat-card-title>
-    <mat-card-subtitle>Háziorvos</mat-card-subtitle>
+    <mat-card-subtitle>{{practitioner.practitioner.specialization}}</mat-card-subtitle>
   </mat-card-header>
   <img mat-card-image src="https://image.freepik.com/free-vector/doctor-character-background_1270-84.jpg">
   <mat-card-content>
-
+    <div>
+    <mat-label><b>Munkahelyi cím:</b></mat-label><div>{{practitioner.practitioner.workingAddress}}</div>
+    <hr>
+    <div style="display: block;">
+      <mat-label><b>Munkaidő:</b></mat-label>
+      <div *ngFor="let worktime of practitioner.practitioner.worktimes">
+        <div *ngIf="worktime.fromTime != '0:00' && worktime.toTime != '0:00'" style="position: relative;">
+          <div *ngIf="worktime.day == 1">Hétfő: {{worktime.fromTime}}-{{worktime.toTime}}</div>
+          <div *ngIf="worktime.day == 2">Kedd: {{worktime.fromTime}}-{{worktime.toTime}}</div>
+          <div *ngIf="worktime.day == 3">Szerda: {{worktime.fromTime}}-{{worktime.toTime}}</div>
+          <div *ngIf="worktime.day == 4">Csütörtök: {{worktime.fromTime}}-{{worktime.toTime}}</div>
+          <div *ngIf="worktime.day == 5">Péntek: {{worktime.fromTime}}-{{worktime.toTime}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
   </mat-card-content>
   <mat-card-actions  *ngIf="profileData.patient?.practitionerId; else inactive">
     <button *ngIf="profileData.patient.practitionerId == practitioner.practitioner?.id; else inactive"
@@ -20,4 +36,5 @@
     </mat-card-actions>
 </ng-template>
 </mat-card>
+</div>
 </div>
