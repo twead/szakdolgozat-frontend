@@ -10,6 +10,7 @@ export class Patient {
     public address: string = null,
     public dateOfBorn: Date = new Date(),
     public phoneNumber: string = null,
+    public picture: string = null,
     public practitionerId: number = null,
     public user: User = null,
     public appointments: Array<Appointment> = null

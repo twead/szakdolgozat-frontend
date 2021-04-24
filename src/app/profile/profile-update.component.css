@@ -27,3 +27,25 @@ mat-card-actions{
 button{
   font-size: 17px;
 }
+
+.photo{
+  margin: auto;
+  width: 100%;
+  text-align: center;
+}
+
+.photo input, button{
+  margin-bottom: 10px;
+}
+
+img{
+  max-height: 300px;
+  max-width: 300px;
+  margin-bottom: 10px;
+}
+
+mat-dialog-container#modal-component {
+  border: 3px solid #262626;
+  border-radius: 11px;
+  background-color: #1a1a1a;
+}

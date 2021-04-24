@@ -1,9 +1,13 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ModalComponent } from '../modal/modal.component';
 import { User } from '../model/user';
 import { PatientService } from '../service/patient.service';
 import { TokenService } from '../service/token.service';
+import { UploadFileService } from '../service/upload-file.service';
 
 @Component({
   selector: 'app-profile-update',
@@ -24,12 +28,14 @@ export class ProfileUpdateComponent implements OnInit {
   phoneNumber: string;
   workingAddress: string;
   specialization: string;
+  picture: string;
 
   minDate = new Date(1900,1,1);
   maxDate = new Date();
 
   constructor(private tokenService: TokenService, private patientService: PatientService,
-              private toastr: ToastrService, private router: Router) { }
+              private toastr: ToastrService, private router: Router, private uploadService: UploadFileService,
+              private https: HttpClient, public matDialog: MatDialog) { }
 
   ngOnInit(): void {
     this.updateProfile = new User();
@@ -44,11 +50,14 @@ export class ProfileUpdateComponent implements OnInit {
       this.address = this.updateProfile.patient.address;
       this.dateOfBorn = this.updateProfile.patient.dateOfBorn;
       this.phoneNumber = this.updateProfile.patient.phoneNumber;
+      this.picture = this.updateProfile.patient.picture;
+      this.preFilePath = this.preFilePath+this.username+'/'+this.picture;
       if(this.isPractitioner == true){
         this.workingAddress = this.updateProfile.practitioner.workingAddress;
         this.specialization = this.updateProfile.practitioner.specialization;
       }
     }, error => console.log(error));
+
 
   }
 
@@ -58,6 +67,8 @@ export class ProfileUpdateComponent implements OnInit {
     this.updateProfile.patient.address = this.address;
     this.updateProfile.patient.dateOfBorn = this.dateOfBorn;
     this.updateProfile.patient.phoneNumber = this.phoneNumber;
+    this.updateProfile.patient.picture = this.picture;
+    this.preFilePath = this.preFilePath+this.username+'/'+this.picture;
     if(this.isPractitioner == true){
       this.updateProfile.practitioner.workingAddress = this.workingAddress;
       this.updateProfile.practitioner.specialization = this.specialization;
@@ -87,5 +98,32 @@ export class ProfileUpdateComponent implements OnInit {
     this.editProfile();
   }
 
+
+  selectedFiles: FileList;
+  selectedFile: File;
+  progress: { percentage: number } = { percentage: 0 };
+  changeImage = false;
+  file: string;
+  preFilePath = 'https://s3.us-east-2.amazonaws.com/onlinehealthcaresystem/';
+
+  deletePicture() {
+    this.uploadService.deleteFileFromStorage(this.username, this.picture).subscribe(res => {
+      this.picture = null;
+    });
+  }
+
+  uploadPicture() {
+    this.progress.percentage = 0;
+    const currentFileUpload = this.selectedFiles.item(0);
+    this.uploadService.pushFileToStorageMine(this.username, currentFileUpload).subscribe(event => {
+      this.selectedFiles = undefined;
+      window.location.reload();
+    });
+    window.location.reload();
+  }
+
+  selectFile(event) {
+    this.selectedFiles = event.target.files;
+  }
 
 }

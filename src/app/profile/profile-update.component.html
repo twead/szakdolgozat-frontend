@@ -1,14 +1,28 @@
 <app-main-nav></app-main-nav>
 
   <div class="container d-flex justify-content-center">
-
     <mat-card class="example-card">
       <mat-card-header>
         <h4><b>Profil módosítása</b></h4>
       </mat-card-header>
       <mat-card-content>
-        <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="photo">
+          <img *ngIf="picture" src="{{preFilePath}}">
+          <img *ngIf="!picture" src="https://history.ucr.edu/sites/g/files/rcwecm1916/files/styles/form_preview/public/blank-profile-picture-png.png?itok=MQ-iPuNG">
+          <br>
+          <button (click)="deletePicture()" color="warn" mat-raised-button>
+            <i class="fas fa-trash"></i> Törlés
+          </button>
+          <br>
+          <input type="file" accept="image/*" id="customFile" (change)="selectFile($event)" title="" placeholder="Fájl kiválasztása">
+          <br>
+          <button (click)="uploadPicture()" color="primary" mat-raised-button>
+            <i class="far fa-save"></i> Profilkép mentése
+          </button>
+        </div>
+        <br><hr>
 
+        <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
           <mat-form-field color="accent" appearance="fill">
             <mat-label>Teljes név</mat-label>
             <input

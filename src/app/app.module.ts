@@ -15,6 +15,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -53,6 +54,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ActivationComponent } from './activation/activation.component';
 import { CommonQuestionsComponent } from './common-questions/common-questions.component';
+import { ModalComponent } from './modal/modal.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -84,7 +86,8 @@ FullCalendarModule.registerPlugins([
     ForgotPasswordComponent,
     ResetPasswordComponent,
     ActivationComponent,
-    CommonQuestionsComponent
+    CommonQuestionsComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -105,6 +108,7 @@ FullCalendarModule.registerPlugins([
     MatListModule,
     MatSelectModule,
     MatSlideToggleModule,
+    MatDialogModule,
     LayoutModule,
     MatSidenavModule,
     MatTableModule,
@@ -117,6 +121,7 @@ FullCalendarModule.registerPlugins([
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     {provide: MAT_DATE_LOCALE, useValue: 'hu'}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModalComponent]
 })
 export class AppModule { }

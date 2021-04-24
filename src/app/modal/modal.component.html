@@ -1,0 +1,13 @@
+<div id="modal-content-wrapper">
+  <header id="modal-header">
+    {{modalData.title}}
+  </header>
+  <section id="modal-body">
+    <div *ngIf="modalData.name === 'viewFile'">
+      <img [src]=preFilePath+modalData.filepath height="325px" width="450px">
+    </div>
+  </section>
+  <footer id="modal-footer">
+    <button class="btn btn-primary btn-sm" (click)="closeModal()">close</button>
+  </footer>
+</div>
