@@ -15,6 +15,7 @@ export class ProfileComponent implements OnInit {
   username: string = this.tokenService.getUserName();
   profileData: User;
   isPractitioner = false;
+  preFilePath = 'https://s3.us-east-2.amazonaws.com/onlinehealthcaresystem/';
 
   constructor(private router: Router, private patietService: PatientService,
               private tokenService: TokenService, private toastr: ToastrService) { }
@@ -31,6 +32,7 @@ export class ProfileComponent implements OnInit {
         .subscribe(
           data => {
             this.profileData = data;
+            this.preFilePath = this.preFilePath + this.username + "/" + this.profileData.patient.picture;
           },
           err => {
             this.toastr.error('Nem létezik a felhasználó', 'Hiba!', {

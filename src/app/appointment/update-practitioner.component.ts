@@ -16,6 +16,7 @@ export class UpdatePractitionerComponent implements OnInit {
   profileData: User;
   practitioners: Array<User> = [];
   errorMessage: string;
+  preFilePath = 'https://s3.us-east-2.amazonaws.com/onlinehealthcaresystem/';
 
   constructor(private appointmentService: AppointmentService, private toastr: ToastrService,
                   private tokenService: TokenService, private patientService: PatientService) { }

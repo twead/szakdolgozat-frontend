@@ -5,6 +5,8 @@
 
   <mat-card class="example-card">
     <mat-card-content>
+      <img *ngIf="profileData?.patient?.picture" src="{{preFilePath}}">
+          <img *ngIf="!profileData?.patient?.picture" src="https://history.ucr.edu/sites/g/files/rcwecm1916/files/styles/form_preview/public/blank-profile-picture-png.png?itok=MQ-iPuNG">
       <div>
         <label><b>Név: </b></label> {{profileData?.patient?.name}}
       </div>

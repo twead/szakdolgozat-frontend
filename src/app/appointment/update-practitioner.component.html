@@ -6,7 +6,10 @@
     <mat-card-title id="practitioner-name"><b>{{practitioner.patient.name}}</b></mat-card-title>
     <mat-card-subtitle>{{practitioner.practitioner.specialization}}</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image src="https://image.freepik.com/free-vector/doctor-character-background_1270-84.jpg">
+  <div class="img-container">
+    <img *ngIf="practitioner?.patient?.picture" src="{{preFilePath}}{{practitioner.username}}/{{practitioner.patient.picture}}">
+    <img *ngIf="!practitioner?.patient?.picture" src="https://history.ucr.edu/sites/g/files/rcwecm1916/files/styles/form_preview/public/blank-profile-picture-png.png?itok=MQ-iPuNG">
+  </div>
   <mat-card-content>
     <div>
     <mat-label><b>Munkahelyi cím:</b></mat-label><div>{{practitioner.practitioner.workingAddress}}</div>
@@ -32,7 +35,7 @@
   </mat-card-actions>
   <ng-template #inactive>
     <mat-card-actions>
-        <button #inactive mat-raised-button color="primary" (click)="selectedPractitioner(practitioner.practitioner.id)">Kiválaszt</button>
+        <button style="margin-top: 0px; margin-bottom: 0px;" #inactive mat-raised-button color="primary" (click)="selectedPractitioner(practitioner.practitioner.id)">Kiválaszt</button>
     </mat-card-actions>
 </ng-template>
 </mat-card>
