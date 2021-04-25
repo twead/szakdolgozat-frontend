@@ -18,6 +18,9 @@ export class WorktimeComponent implements OnInit {
   profileData: User;
   errorMessage: string;
 
+  slotMinTime: string;
+  slotMaxTime: string;
+  defaultTimePerClient :number;
   worksOnHoliday: boolean;
 
   mondayStart: string = "";
@@ -85,6 +88,9 @@ export class WorktimeComponent implements OnInit {
     this.appointmentService.getHolidayWorksForWorktimeSettings(this.username)
     .subscribe(
       data => {
+        this.defaultTimePerClient = data.defaultTimePerClient;
+        this.slotMinTime = data.slotMinTime;
+        this.slotMaxTime = data.slotMaxTime;
         this.worksOnHoliday = data.worksOnHoliday;
       },
       error => {
@@ -114,7 +120,12 @@ export class WorktimeComponent implements OnInit {
         }
       );
 
-      this.appointmentService.setWorksOnHolidays(this.username, new HolidaysDto(this.worksOnHoliday)).subscribe(
+      this.appointmentService.setWorksOnHolidays(this.username,
+        new HolidaysDto(
+          this.slotMinTime?this.slotMinTime:'06:00',
+          this.slotMaxTime?this.slotMaxTime:'20:00',
+          this.defaultTimePerClient?this.defaultTimePerClient:30,
+          this.worksOnHoliday)).subscribe(
         data => {
         },
         error => {

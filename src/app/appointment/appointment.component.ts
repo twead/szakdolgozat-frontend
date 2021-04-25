@@ -51,15 +51,17 @@ export class AppointmentComponent {
       right: 'today'
     },
     forceEventDuration: true,
-    slotDuration: '00:15',
-    slotLabelInterval: 15,
     slotLabelFormat: {
       hour: 'numeric',
       minute: '2-digit',
       omitZeroMinute: false,
       meridiem: 'short'
     },
-    slotMinTime: '6:00',
+
+    slotDuration:'00:30',
+    defaultTimedEventDuration:'00:30',
+    slotLabelInterval: 30,
+    slotMinTime: '2:00',
     slotMaxTime: '20:00',
 
     businessHours: [],
@@ -69,14 +71,13 @@ export class AppointmentComponent {
 
     validRange: {
       start: Date.now(),
-      end: Date.now() + 1000*60*60*24*31 //+1 year
+      end: Date.now() + 1000*60*60*24*31
     },
     events: this.calendarEvents,
     initialView: 'timeGridWeek',
     firstDay: this.dayNumber,
     weekends: false,
     editable: false,
-    defaultTimedEventDuration:'00:15',
     selectable: true,
     selectMirror: false,
     dayMaxEvents: true,
@@ -115,6 +116,11 @@ export class AppointmentComponent {
   doesYourDoctorWorkOnHolidays(){
     this.service.getWorksOnHolidays(this.username).subscribe(
       data => {
+        this.calendarOptions.slotDuration = '00:' + data.defaultTimePerClient,
+        this.calendarOptions.slotLabelInterval = data.defaultTimePerClient,
+        this.calendarOptions.defaultTimedEventDuration = '00:' + data.defaultTimePerClient;
+        this.calendarOptions.slotMinTime = data.slotMinTime,
+        this.calendarOptions.slotMaxTime = data.slotMaxTime,
         this.wantToWorkOnHolidays = data.worksOnHoliday;
         this.getYourDoctorBusinessHours();
       },
@@ -230,7 +236,7 @@ export class AppointmentComponent {
 
       //const title = prompt('Ha szeretnéd, írd le a problémádat pár szóban');
       dialogRef.afterClosed().subscribe(result => {
-        if(result != null || result != ''){
+        if(result!=true){
             calendarApi.addEvent({
             id: createEventId()+'f',
             title: result,
@@ -245,7 +251,7 @@ export class AppointmentComponent {
           });
         }
 
-        this.service.saveAppointment(this.username, new Appointment(null,result?result:this.profileData.patient.name,selectInfo.startStr)).subscribe(
+        this.service.saveAppointment(this.username, new Appointment(null,result!=true?result:this.profileData.patient.name,selectInfo.startStr)).subscribe(
           data => {
             this.toastr.success('Sikeres időpontfoglalás!', 'OK', {
               timeOut: 3000,  positionClass: 'toast-top-center',
