@@ -100,10 +100,8 @@ export class ProfileUpdateComponent implements OnInit {
 
 
   selectedFiles: FileList;
-  selectedFile: File;
   progress: { percentage: number } = { percentage: 0 };
   changeImage = false;
-  file: string;
   preFilePath = 'https://s3.us-east-2.amazonaws.com/onlinehealthcaresystem/';
 
   deletePicture() {
@@ -117,9 +115,11 @@ export class ProfileUpdateComponent implements OnInit {
     const currentFileUpload = this.selectedFiles.item(0);
     this.uploadService.pushFileToStorageMine(this.username, currentFileUpload).subscribe(event => {
       this.selectedFiles = undefined;
-      window.location.reload();
     });
-    window.location.reload();
+    this.picture =  this.updateProfile.patient.picture;
+    this.toastr.success('Profilodat módosítottad!', 'OK', {
+      timeOut: 3000,  positionClass: 'toast-top-center',
+    });
   }
 
   selectFile(event) {

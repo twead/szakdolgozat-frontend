@@ -1,13 +1,12 @@
-<div id="modal-content-wrapper">
-  <header id="modal-header">
-    {{modalData.title}}
-  </header>
-  <section id="modal-body">
-    <div *ngIf="modalData.name === 'viewFile'">
-      <img [src]=preFilePath+modalData.filepath height="325px" width="450px">
-    </div>
-  </section>
-  <footer id="modal-footer">
-    <button class="btn btn-primary btn-sm" (click)="closeModal()">close</button>
-  </footer>
-</div>
+<h2 mat-dialog-title>{{data.title}}</h2>
+<h4 mat-dialog-title>{{data.paragraph}}</h4>
+
+<mat-form-field style="width: 100%; margin: auto;" *ngIf="data.title == 'Ha szeretnéd, írd le a problémádat pár szóban'">
+  <input matInput [(ngModel)]="data.instructions">
+</mat-form-field>
+
+<mat-dialog-actions style="margin: auto; display: block;">
+  <button mat-button mat-dialog-close>Nem</button>
+  <button *ngIf="data.instructions" style="float: right;" mat-button [mat-dialog-close]="data.instructions" cdkFocusInitial>Igen</button>
+  <button *ngIf="!data.instructions" style="float: right;" mat-button [mat-dialog-close]="true" cdkFocusInitial>Igen</button>
+</mat-dialog-actions>

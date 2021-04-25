@@ -1,9 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/angular';
 import { EventInput } from '@fullcalendar/core'
 import huLocale from '@fullcalendar/core/locales/hu';
 import { ToastrService } from 'ngx-toastr';
 import { InstructionDto } from '../dto/instruction-dto';
+import { ModalComponent } from '../modal/modal.component';
 import { Appointment } from '../model/appointment';
 import { User } from '../model/user';
 import { AppointmentService } from '../service/appointment.service';
@@ -29,7 +31,8 @@ export class AppointmentComponent {
   wantToWorkOnHolidays: boolean;
 
   constructor(private service : AppointmentService, private toastr: ToastrService,
-    private tokenService: TokenService, private patientService: PatientService){ }
+    private tokenService: TokenService, private patientService: PatientService,
+    public matDialog: MatDialog){ }
 
   ngOnInit(){
     var day = new Date();
@@ -60,8 +63,9 @@ export class AppointmentComponent {
     slotMaxTime: '20:00',
 
     businessHours: [],
-
     selectConstraint:[],
+
+    longPressDelay: 0,
 
     validRange: {
       start: Date.now(),
@@ -196,67 +200,103 @@ export class AppointmentComponent {
         this.calendarOptions.events = this.calendarEvents;
 
        })
-
-
      }
 
   handleDateSelect(selectInfo: DateSelectArg) {
     const calendarApi = selectInfo.view.calendar;
     calendarApi.unselect();
 
-    if(confirm("Biztosan foglalsz?")){
-    const title = prompt('Ha szeretnéd, írd le a problémádat pár szóban');
-    if (title) {
-        calendarApi.addEvent({
-        id: createEventId()+'f',
-        title,
-        start: selectInfo.startStr
-      });
+    const dialogRef = this.matDialog.open(ModalComponent, {
+      width: '500px',
+      data:{
+        title: "Biztosan foglalsz?",
+        paragraph: selectInfo.start.getFullYear()+'.'+
+                  selectInfo.start.getMonth()+'.'+
+                  selectInfo.start.getDay()+'. '+
+                  selectInfo.start.getHours()+':'+
+                  selectInfo.start.getMinutes(),
     }
-    else {
-      calendarApi.addEvent({
-        id: createEventId()+'f',
-        title: this.profileData.patient.name,
-        start: selectInfo.startStr
-      });
-    }
+    });
 
-      this.service.saveAppointment(this.username, new Appointment(null,title?title:this.profileData.patient.name,selectInfo.startStr)).subscribe(
-        data => {
-          this.toastr.success('Sikeres időpontfoglalás!', 'OK', {
-            timeOut: 3000,  positionClass: 'toast-top-center',
-          });
-          window.location.reload();
-        },
-        err => {
-          this.errorMessage = err.error.message;
-          this.toastr.error(this.errorMessage, 'Hiba!', {
-            timeOut: 3000,  positionClass: 'toast-top-center',
-          });
-          window.location.reload();
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == true){
+
+        const dialogRef = this.matDialog.open(ModalComponent, {
+          width: '500px',
+          data:{
+            title: "Ha szeretnéd, írd le a problémádat pár szóban",
         }
-      )
-    }
+        });
+
+      //const title = prompt('Ha szeretnéd, írd le a problémádat pár szóban');
+      dialogRef.afterClosed().subscribe(result => {
+        if(result != null || result != ''){
+            calendarApi.addEvent({
+            id: createEventId()+'f',
+            title: result,
+            start: selectInfo.startStr
+          });
+        }
+        else {
+          calendarApi.addEvent({
+            id: createEventId()+'f',
+            title: this.profileData.patient.name,
+            start: selectInfo.startStr
+          });
+        }
+
+        this.service.saveAppointment(this.username, new Appointment(null,result?result:this.profileData.patient.name,selectInfo.startStr)).subscribe(
+          data => {
+            this.toastr.success('Sikeres időpontfoglalás!', 'OK', {
+              timeOut: 3000,  positionClass: 'toast-top-center',
+            });
+            window.location.reload();
+          },
+          err => {
+            this.errorMessage = err.error.message;
+            this.toastr.error(this.errorMessage, 'Hiba!', {
+              timeOut: 3000,  positionClass: 'toast-top-center',
+            });
+            window.location.reload();
+          }
+        );
+      });
+      }
+    });
   }
 
   handleEventClick(clickInfo: EventClickArg) {
     if(clickInfo.event.backgroundColor != '#dddddd'){
-    if (confirm(`Biztosan törölöd a foglalásod? '${clickInfo.event.start}'`)) {
-      this.service.deleteAppointment(clickInfo.event.id).subscribe(
-        data => {
-          this.toastr.success('Sikeresen törölted az időpontot!', 'OK', {
-            timeOut: 3000,  positionClass: 'toast-top-center',
-          });
-        },
-        err => {
-          this.toastr.error('Az időpont törlése nem sikerült!', 'Hiba!', {
-            timeOut: 3000,  positionClass: 'toast-top-center',
-          });
+
+      const dialogRef = this.matDialog.open(ModalComponent, {
+        width: '250px',
+        data:{title: "Biztosan törlöd?",
+        paragraph: clickInfo.event.start.getFullYear()+'.'+
+                   clickInfo.event.start.getMonth()+'.'+
+                   clickInfo.event.start.getDay()+'. '+
+                   clickInfo.event.start.getHours()+':'+
+                   clickInfo.event.start.getMinutes()
+      }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if(result == true){
+          this.service.deleteAppointment(clickInfo.event.id).subscribe(
+            data => {
+              this.toastr.success('Sikeresen törölted az időpontot!', 'OK', {
+                timeOut: 3000,  positionClass: 'toast-top-center',
+              });
+            },
+            err => {
+              this.toastr.error('Az időpont törlése nem sikerült!', 'Hiba!', {
+                timeOut: 3000,  positionClass: 'toast-top-center',
+              });
+            }
+          );
+          clickInfo.event.remove();
         }
-      );
-      clickInfo.event.remove();
+      });
     }
-  }
   }
 
   handleEvents(events: EventApi[]) {

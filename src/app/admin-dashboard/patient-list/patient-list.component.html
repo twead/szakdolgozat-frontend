@@ -25,8 +25,8 @@
             <td>{{patient.patient.email}}</td>
             <td style="display: flex;"><button (click)="getPatientDetails(patient.id)" class="btn btn-info" style="margin-right: 10px">Részletek</button>
             <button (click)="updatePatient(patient.id)" class="btn btn-info" style="margin-right: 10px">Módosítás</button>
-            <button (click)="updateToPractitioner(patient.id)" class="btn btn-info" style="margin-right: 10px">Orvossá alakítás</button>
-            <button (click)="deletePatient(patient.id)" class="btn btn-danger">Törlés</button></td>
+            <button (click)="updateToPractitioner(patient.id, patient.username)" class="btn btn-info" style="margin-right: 10px">Orvossá alakítás</button>
+            <button (click)="deletePatient(patient.id, patient.username)" class="btn btn-danger">Törlés</button></td>
           </tr>
         </tbody>
       </table>

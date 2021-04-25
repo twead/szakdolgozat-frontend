@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ModalComponent } from 'src/app/modal/modal.component';
 import { User } from 'src/app/model/user';
 import { AdminDashboardService } from 'src/app/service/admin-dashboard.service';
 
@@ -18,28 +20,41 @@ export class PatientListComponent implements OnInit {
   page:number = 1;
 
   constructor(private adminService: AdminDashboardService, private router: Router,
-              private toastr: ToastrService) { }
+              private toastr: ToastrService, public matDialog: MatDialog) { }
 
   ngOnInit() {
     this.getPatients();
   }
 
-  deletePatient(id: number) {
-    this.adminService.deletePatient(id)
-      .subscribe(
-        data => {
-          this.toastr.success('Páciens törölve!', 'OK', {
-            timeOut: 3000,  positionClass: 'toast-top-center',
-          });
-          this.getPatients();
-        },
-        err => {
-          this.errorMessage = err.error.message;
-          this.toastr.error(this.errorMessage, 'Hiba!', {
-            timeOut: 3000,  positionClass: 'toast-top-center',
-          });
-        }
-      );
+  deletePatient(id: number, username: string) {
+
+    const dialogRef = this.matDialog.open(ModalComponent, {
+      width: '300px',
+      data:{
+        title: "Biztosan törlöd őt?",
+        paragraph: username
+    }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == true){
+        this.adminService.deletePatient(id)
+          .subscribe(
+            data => {
+              this.toastr.success('Páciens törölve!', 'OK', {
+                timeOut: 3000,  positionClass: 'toast-top-center',
+              });
+              this.getPatients();
+            },
+            err => {
+              this.errorMessage = err.error.message;
+              this.toastr.error(this.errorMessage, 'Hiba!', {
+                timeOut: 3000,  positionClass: 'toast-top-center',
+              });
+            }
+          );
+      }
+    });
   }
 
   getPatients() {
@@ -61,19 +76,33 @@ export class PatientListComponent implements OnInit {
     this.router.navigate(['patients/update', id]);
   }
 
-  updateToPractitioner(id: number){
-    this.adminService.upgradeToPractitioner(id).subscribe(
-      response => {
-        this.toastr.success("Orvos rang kiosztva", 'OK', {
-          timeOut: 3000, positionClass: 'toast-top-center'
-        });
-      },
-      error => {
-        this.toastr.error(error.error.message, 'Hiba', {
-          timeOut: 3000, positionClass: 'toast-top-center'
-        });
+  updateToPractitioner(id: number, username: string){
+
+    const dialogRef = this.matDialog.open(ModalComponent, {
+      width: '300px',
+      data:{
+        title: "Biztosan szeretnéd, hogy ő orvos legyen?",
+        paragraph: username
+    }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == true){
+
+        this.adminService.upgradeToPractitioner(id).subscribe(
+          response => {
+            this.toastr.success("Orvos rang kiosztva", 'OK', {
+              timeOut: 3000, positionClass: 'toast-top-center'
+            });
+          },
+          error => {
+            this.toastr.error(error.error.message, 'Hiba', {
+              timeOut: 3000, positionClass: 'toast-top-center'
+            });
+          }
+        );
       }
-    );
+    });
   }
 
   search(){
