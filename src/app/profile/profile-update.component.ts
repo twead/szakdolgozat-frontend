@@ -3,9 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ModalComponent } from '../modal/modal.component';
 import { User } from '../model/user';
-import { PatientService } from '../service/patient.service';
+import { UserProfileService } from '../service/user-profile.service';
 import { TokenService } from '../service/token.service';
 import { UploadFileService } from '../service/upload-file.service';
 
@@ -33,7 +32,7 @@ export class ProfileUpdateComponent implements OnInit {
   minDate = new Date(1900,1,1);
   maxDate = new Date();
 
-  constructor(private tokenService: TokenService, private patientService: PatientService,
+  constructor(private tokenService: TokenService, private userProfileService: UserProfileService,
               private toastr: ToastrService, private router: Router, private uploadService: UploadFileService,
               private https: HttpClient, public matDialog: MatDialog) { }
 
@@ -42,7 +41,7 @@ export class ProfileUpdateComponent implements OnInit {
     this.username = this.tokenService.getUserName();
     this.isPractitioner = this.tokenService.IsPractitioner();
 
-    this.patientService.getProfileDetails(this.username)
+    this.userProfileService.getProfileDetails(this.username)
     .subscribe(data => {
       this.updateProfile = data;
       this.name = this.updateProfile.patient.name;
@@ -74,7 +73,7 @@ export class ProfileUpdateComponent implements OnInit {
       this.updateProfile.practitioner.specialization = this.specialization;
     }
 
-    this.patientService.updateProfile(this.username, this.updateProfile)
+    this.userProfileService.updateProfile(this.username, this.updateProfile)
       .subscribe(data => {
         this.toastr.success('Profilodat módosítottad!', 'OK', {
           timeOut: 3000,  positionClass: 'toast-top-center',

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../model/user';
-import { AppointmentService } from '../service/appointment.service';
-import { PatientService } from '../service/patient.service';
+import { UserProfileService } from '../service/user-profile.service';
 import { TokenService } from '../service/token.service';
 
 @Component({
@@ -18,7 +17,7 @@ export class SelectPractitionerComponent implements OnInit {
   practitioners: Array<User> = [];
   errorMessage: string;
 
-  constructor(private patientService: PatientService, private tokenService: TokenService,
+  constructor(private userProfileService: UserProfileService, private tokenService: TokenService,
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -28,7 +27,7 @@ export class SelectPractitionerComponent implements OnInit {
   getProfile(){
     this.profileData = new User();
 
-    this.patientService.getProfileDetails(this.username)
+    this.userProfileService.getProfileDetails(this.username)
       .subscribe(
         data => {
           this.profileData = data;

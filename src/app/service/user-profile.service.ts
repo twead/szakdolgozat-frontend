@@ -7,7 +7,7 @@ import { User } from '../model/user';
 @Injectable({
   providedIn: 'root'
 })
-export class PatientService {
+export class UserProfileService {
 
   patientURL = environment.patientURL;
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { PatientService } from '../service/patient.service';
+import { UserProfileService } from '../service/user-profile.service';
 import { TokenService } from '../service/token.service';
 
 @Component({
@@ -16,7 +16,7 @@ password: string;
 confirmpassword: string;
 errorMessage: string;
 
-constructor(private tokenService: TokenService, private patientService: PatientService,
+constructor(private tokenService: TokenService, private userProfileService: UserProfileService,
   private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
@@ -24,7 +24,7 @@ constructor(private tokenService: TokenService, private patientService: PatientS
   }
 
   editProfile() {
-    this.patientService.updatePassword(this.username, this.password)
+    this.userProfileService.updatePassword(this.username, this.password)
       .subscribe(data => {
         this.toastr.success('', 'Sikeres jelszó módosítás!', {
           timeOut: 3000,  positionClass: 'toast-top-center',

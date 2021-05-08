@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ClientCrudDto } from '../dto/client-crud-dto';
-import { Appointment } from '../model/appointment';
-import { User } from '../model/user';
-import { PatientService } from '../service/patient.service';
 import { PractitionerDashboardService } from '../service/practitioner-dashboard.service';
 import { TokenService } from '../service/token.service';
 
@@ -21,6 +17,7 @@ export class ClientListComponent implements OnInit {
   name: any;
   totalRecords: number;
   page:number = 1;
+  preFilePath = 'https://s3.us-east-2.amazonaws.com/onlinehealthcaresystem/';
 
   constructor(private service: PractitionerDashboardService, private tokenService: TokenService,
               private toastr: ToastrService) { }

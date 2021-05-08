@@ -2,13 +2,14 @@
 <div class="container">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h2>Praktícionáló lista</h2>
+      <h2>Orvos lista</h2>
     </div>
     <div class="panel-body">
       <input class="form-control" type="text" name="name" [(ngModel)]="name" (ngModelChange)="search()" placeholder="Írd be az orvos nevét">
       <table class="table table-striped table-responsive-md">
         <thead>
           <tr>
+            <th></th>
             <th>Név</th>
             <th>Felhasználónév</th>
             <th>Email</th>
@@ -20,6 +21,10 @@
           itemsPerPage: 10,
           currentPage: page,
           totalItems: totalRecords }">
+            <td>
+              <img *ngIf="practitioner.patient.picture" src="{{preFilePath}}{{practitioner.username}}/{{practitioner.patient.picture}}">
+              <img *ngIf="!practitioner.patient.picture" src="https://history.ucr.edu/sites/g/files/rcwecm1916/files/styles/form_preview/public/blank-profile-picture-png.png?itok=MQ-iPuNG">
+            </td>
             <td>{{practitioner.patient.name}}</td>
             <td>{{practitioner.username}}</td>
             <td>{{practitioner.patient.email}}</td>

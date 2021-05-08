@@ -1,9 +1,13 @@
 <app-main-nav></app-main-nav>
 <div class="container">
-  <h2>Háziorvos részletek</h2>
+  <h2>Orvos részletek</h2>
 
   <hr/>
   <div *ngIf="practitioner">
+    <div>
+      <img *ngIf="practitioner.patient.picture" src="{{preFilePath}}{{practitioner.username}}/{{practitioner.patient.picture}}">
+      <img *ngIf="!practitioner?.patient?.picture" src="https://history.ucr.edu/sites/g/files/rcwecm1916/files/styles/form_preview/public/blank-profile-picture-png.png?itok=MQ-iPuNG">
+    </div>
     <div>
       <label><b>Név: </b></label> {{practitioner.patient.name}}
     </div>
@@ -22,9 +26,15 @@
     <div>
       <label><b>Telefonszám: </b></label> {{practitioner.patient.phoneNumber}}
     </div>
+    <div>
+      <label><b>Szakterület: </b></label> {{practitioner.practitioner.specialization}}
+    </div>
+    <div>
+      <label><b>Munkahelyi cím: </b></label> {{practitioner.practitioner.workingAddress}}
+    </div>
   </div>
 
   <br>
   <br>
-  <button (click)="list()" class="btn btn-primary">Vissza a háziorvos listához</button><br>
+  <button (click)="list()" class="btn btn-primary">Vissza az orvos listához</button><br>
 </div>

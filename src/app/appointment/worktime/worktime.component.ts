@@ -4,7 +4,7 @@ import { HolidaysDto } from 'src/app/dto/holidays-dto';
 import { User } from 'src/app/model/user';
 import { Worktime } from 'src/app/model/worktime';
 import { AppointmentService } from 'src/app/service/appointment.service';
-import { PatientService } from 'src/app/service/patient.service';
+import { UserProfileService } from 'src/app/service/user-profile.service';
 import { TokenService } from 'src/app/service/token.service';
 
 @Component({
@@ -39,7 +39,7 @@ export class WorktimeComponent implements OnInit {
   worktimes: Array<Worktime>;
 
   constructor( private toastr: ToastrService, private tokenService: TokenService,
-    private appointmentService : AppointmentService, private patientService: PatientService) { }
+    private appointmentService : AppointmentService, private userProfileService: UserProfileService) { }
 
   ngOnInit(): void {
     this.getProfile();
@@ -48,7 +48,7 @@ export class WorktimeComponent implements OnInit {
   getProfile(){
     this.profileData = new User();
 
-    this.patientService.getProfileDetails(this.username)
+    this.userProfileService.getProfileDetails(this.username)
       .subscribe(
         data => {
           this.profileData = data;

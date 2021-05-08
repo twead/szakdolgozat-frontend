@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../model/user';
 import { AppointmentService } from '../service/appointment.service';
-import { PatientService } from '../service/patient.service';
+import { UserProfileService } from '../service/user-profile.service';
 import { TokenService } from '../service/token.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class UpdatePractitionerComponent implements OnInit {
   preFilePath = 'https://s3.us-east-2.amazonaws.com/onlinehealthcaresystem/';
 
   constructor(private appointmentService: AppointmentService, private toastr: ToastrService,
-                  private tokenService: TokenService, private patientService: PatientService) { }
+                  private tokenService: TokenService, private userProfileService: UserProfileService) { }
 
   ngOnInit(): void {
     this.getProfile();
@@ -29,7 +29,7 @@ export class UpdatePractitionerComponent implements OnInit {
   getProfile(){
     this.profileData = new User();
 
-    this.patientService.getProfileDetails(this.username)
+    this.userProfileService.getProfileDetails(this.username)
       .subscribe(
         data => {
           this.profileData = data;
@@ -46,7 +46,11 @@ export class UpdatePractitionerComponent implements OnInit {
   getPractitioners() {
     this.appointmentService.getAllPractitionerExceptMe(this.username).subscribe(
       response => {
-        this.practitioners = response;
+        response.forEach(p => {
+          if(p.practitioner.specialization != null && p.practitioner.workingAddress != null){
+            this.practitioners.push(p);
+          }
+        })
       },
       err => {
         this.toastr.error('Nem létezik a felhasználó', 'Hiba!', {

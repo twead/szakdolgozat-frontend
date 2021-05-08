@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../model/user';
-import { PatientService } from '../service/patient.service';
+import { UserProfileService } from '../service/user-profile.service';
 import { TokenService } from '../service/token.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
   isPractitioner = false;
   preFilePath = 'https://s3.us-east-2.amazonaws.com/onlinehealthcaresystem/';
 
-  constructor(private router: Router, private patietService: PatientService,
+  constructor(private router: Router, private userProfileService: UserProfileService,
               private tokenService: TokenService, private toastr: ToastrService) { }
 
   ngOnInit() {
@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit {
     getProfile(){
       this.profileData = new User();
 
-      this.patietService.getProfileDetails(this.username)
+      this.userProfileService.getProfileDetails(this.username)
         .subscribe(
           data => {
             this.profileData = data;

@@ -9,6 +9,7 @@
       <table class="table table-striped table-responsive-md">
         <thead>
           <tr>
+            <th></th>
             <th>Név</th>
             <th>Felhasználónév</th>
             <th>Email</th>
@@ -20,6 +21,10 @@
           itemsPerPage: 10,
           currentPage: page,
           totalItems: totalRecords }">
+            <td>
+              <img *ngIf="patient.patient.picture" src="{{preFilePath}}{{patient.username}}/{{patient.patient.picture}}">
+              <img *ngIf="!patient.patient.picture" src="https://history.ucr.edu/sites/g/files/rcwecm1916/files/styles/form_preview/public/blank-profile-picture-png.png?itok=MQ-iPuNG">
+            </td>
             <td>{{patient.patient.name}}</td>
             <td>{{patient.username}}</td>
             <td>{{patient.patient.email}}</td>

@@ -5,6 +5,10 @@
   <hr/>
   <div *ngIf="patient">
     <div>
+      <img *ngIf="patient.patient.picture" src="{{preFilePath}}{{patient.username}}/{{patient.patient.picture}}">
+      <img *ngIf="!patient?.patient?.picture" src="https://history.ucr.edu/sites/g/files/rcwecm1916/files/styles/form_preview/public/blank-profile-picture-png.png?itok=MQ-iPuNG">
+    </div>
+    <div>
       <label><b>Név: </b></label> {{patient.patient.name}}
     </div>
     <div>

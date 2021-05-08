@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/angular';
 import { EventInput } from '@fullcalendar/core'
 import huLocale from '@fullcalendar/core/locales/hu';
@@ -9,9 +9,10 @@ import { ModalComponent } from '../modal/modal.component';
 import { Appointment } from '../model/appointment';
 import { User } from '../model/user';
 import { AppointmentService } from '../service/appointment.service';
-import { PatientService } from '../service/patient.service';
+import { UserProfileService } from '../service/user-profile.service';
 import { TokenService } from '../service/token.service';
 import { createEventId, HOLIDAYS } from './event-utils';
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-appointment',
@@ -31,7 +32,7 @@ export class AppointmentComponent {
   wantToWorkOnHolidays: boolean;
 
   constructor(private service : AppointmentService, private toastr: ToastrService,
-    private tokenService: TokenService, private patientService: PatientService,
+    private tokenService: TokenService, private userProfileService: UserProfileService,
     public matDialog: MatDialog){ }
 
   ngOnInit(){
@@ -98,7 +99,7 @@ export class AppointmentComponent {
 
     this.profileData = new User();
 
-    this.patientService.getProfileDetails(this.username)
+    this.userProfileService.getProfileDetails(this.username)
       .subscribe(
         data => {
           this.profileData = data;
@@ -211,6 +212,8 @@ export class AppointmentComponent {
   handleDateSelect(selectInfo: DateSelectArg) {
     const calendarApi = selectInfo.view.calendar;
     calendarApi.unselect();
+    var minute;
+    selectInfo.start.getMinutes()!=0?minute=selectInfo.start.getMinutes():minute=selectInfo.start.getMinutes()+"0"
 
     const dialogRef = this.matDialog.open(ModalComponent, {
       width: '500px',
@@ -220,7 +223,7 @@ export class AppointmentComponent {
                   selectInfo.start.getMonth()+'.'+
                   selectInfo.start.getDay()+'. '+
                   selectInfo.start.getHours()+':'+
-                  selectInfo.start.getMinutes(),
+                  minute,
     }
     });
 
@@ -274,6 +277,9 @@ export class AppointmentComponent {
   handleEventClick(clickInfo: EventClickArg) {
     if(clickInfo.event.backgroundColor != '#dddddd'){
 
+      var minute;
+      clickInfo.event.start.getMinutes()!=0?minute=clickInfo.event.start.getMinutes():minute=clickInfo.event.start.getMinutes()+"0"
+
       const dialogRef = this.matDialog.open(ModalComponent, {
         width: '250px',
         data:{title: "Biztosan törlöd?",
@@ -281,7 +287,7 @@ export class AppointmentComponent {
                    clickInfo.event.start.getMonth()+'.'+
                    clickInfo.event.start.getDay()+'. '+
                    clickInfo.event.start.getHours()+':'+
-                   clickInfo.event.start.getMinutes()
+                   minute
       }
       });
 

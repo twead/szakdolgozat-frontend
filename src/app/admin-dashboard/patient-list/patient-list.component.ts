@@ -18,6 +18,7 @@ export class PatientListComponent implements OnInit {
   name: any;
   totalRecords: number;
   page:number = 1;
+  preFilePath = 'https://s3.us-east-2.amazonaws.com/onlinehealthcaresystem/';
 
   constructor(private adminService: AdminDashboardService, private router: Router,
               private toastr: ToastrService, public matDialog: MatDialog) { }

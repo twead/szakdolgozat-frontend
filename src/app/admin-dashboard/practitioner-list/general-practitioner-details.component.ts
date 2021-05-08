@@ -15,6 +15,7 @@ export class GeneralPractitionerDetailsComponent implements OnInit {
   id: number;
   practitioner: User;
   errorMessage: string;
+  preFilePath = 'https://s3.us-east-2.amazonaws.com/onlinehealthcaresystem/';
 
   constructor(private route: ActivatedRoute,private router: Router,
     private adminService: AdminDashboardService, private toastr: ToastrService) { }

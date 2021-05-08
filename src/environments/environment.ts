@@ -10,7 +10,7 @@ export const environment = {
   appointmentURL: "http://localhost:8080/api/appointment/",
   practitionerDashboardURL: "http://localhost:8080/api/practitioner-dashboard/"
   // ng build --prod
- /*   authURL: "https://onlinehealthcaresystem.herokuapp.com/auth/",
+   /* authURL: "https://onlinehealthcaresystem.herokuapp.com/auth/",
     patientURL: "https://onlinehealthcaresystem.herokuapp.com/api/profile/",
     dashboardURL : "https://onlinehealthcaresystem.herokuapp.com/api/dashboard/",
     appointmentURL: "https://onlinehealthcaresystem.herokuapp.com/api/appointment/",
